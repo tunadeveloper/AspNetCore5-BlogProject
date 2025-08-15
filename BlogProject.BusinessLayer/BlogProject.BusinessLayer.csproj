@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlogProject.DataAccessLayer\BlogProject.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\BlogProject.EntityLayer\BlogProject.EntityLayer.csproj" />
+  </ItemGroup>
+
+</Project>
