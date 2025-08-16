@@ -1,0 +1,24 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model Comment
+<div class="leave-comment mb-5">
+	<h4 class="mb-4">Yorum Yap</h4>
+	<form action="#" method="post">
+		<div class="row g-3">
+			<div class="col-md-6">
+				<input type="text" class="form-control mb-2" name="Name" placeholder="Name" required>
+			</div>
+			<div class="col-md-6">
+				<input type="email" class="form-control mb-2" name="Email" placeholder="Email" required>
+			</div>
+			<div class="col-12">
+				<input type="text" class="form-control mb-2" name="Subject" placeholder="Subject" required>
+			</div>
+			<div class="col-12">
+				<textarea class="form-control mb-3" name="Message" placeholder="Message..." rows="5" required></textarea>
+			</div>
+			<div class="col-12">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
