@@ -29,6 +29,11 @@ namespace BlogProject.BusinessLayer.Concrete
             return _blogDal.GetAll();
         }
 
+        public List<Blog> GetBlogListByWriterBL(int id)
+        {
+            return _blogDal.List(x => x.WriterId == id);
+        }
+
         public Blog GetByIdBL(int id)
         {
             return _blogDal.GetById(id);

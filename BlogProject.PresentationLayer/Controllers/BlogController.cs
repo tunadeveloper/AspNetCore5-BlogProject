@@ -24,6 +24,7 @@ namespace BlogProject.PresentationLayer.Controllers
 
         public IActionResult BlogDetails(int id)
         {
+            ViewBag.id = id;
             var values = _blogService.GetByIdWithCategoryBL(id);
             return View(values);
         }

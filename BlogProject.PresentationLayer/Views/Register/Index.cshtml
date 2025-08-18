@@ -1,0 +1,86 @@
+﻿@using BlogProject.EntityLayer.Concrete
+ @model Writer
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<section class="main-content-w3layouts-agileits">
+	<div class="container">
+		<h3 class="tittle">Hemen Kayıt Ol</h3>
+		<div class="inner-sec">
+			<div class="login p-5 bg-light mx-auto mw-100">
+				@using (Html.BeginForm("Index", "Register", FormMethod.Post))
+				{
+					<div class="form-row">
+						<div class="col-md-6 mb-3">
+							@Html.LabelFor(x => x.WriterName, "İsim Soyisim")
+							@Html.TextBoxFor(x => x.WriterName, new { @class = "form-control", placeholder = "", required = "required" })
+							@Html.ValidationMessageFor(x => x.WriterName, "", new { @class = "text-danger" })
+						</div>
+
+						<div class="col-md-6 mb-3">
+							@Html.LabelFor(x => x.WriterEmail, "E-Posta")
+							@Html.TextBoxFor(x => x.WriterEmail, new { @class = "form-control", type = "email", placeholder = "", required = "required" })
+							@Html.ValidationMessageFor(x => x.WriterEmail, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							@Html.LabelFor(x => x.WriterPassword, "Şifre")
+							@Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control", placeholder = "", required = "required" })
+							@Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary submit mb-4" id="success">Kayıt Ol</button>
+					<p>
+						<a href="#" id="agreement">Tüm Şartları Okudum, Kabul Ediyorum.</a>
+					</p>
+				}
+
+
+			</div>
+		</div>
+	</div>
+	<br />
+
+</section>
+
+
+<script>
+
+		$("#success").click(function (e) {
+		e.preventDefault();
+
+		swal({
+			title: "Harika!",
+			text: "Kayıdınız başarılı bir şekilde gerçekleşti!",
+			icon: "success",
+			button: "Tamam"
+		}).then((willOk) => {
+			if (willOk) {
+				$("form").submit();
+			}
+		});
+	});
+
+		let agreementText =
+	"Bu sözleşme, Blog platformuna üye olan kullanıcı ile yönetim arasında düzenlenmiştir. Kullanıcı, üyelik işlemini tamamladığında bu sözleşmeyi kabul etmiş sayılır.\n\n" +
+	"Kullanıcı, sisteme kayıt olurken doğru ve güncel bilgiler vermekle yükümlüdür. Paylaştığı tüm içeriklerden kendisi sorumludur. Küfür, hakaret, tehdit, şiddet, ayrımcılık veya telif hakkı ihlali içeren paylaşımlar yasaktır.\n\n" +
+	"Yönetim, kullanıcıların içeriklerini önceden bildirim yapmadan silebilir, kurallara aykırı davranan kullanıcıların hesaplarını askıya alabilir veya kalıcı olarak silebilir. Ayrıca, site üzerinde tasarım ve kullanım koşullarında değişiklik yapma hakkını saklı tutar.\n\n" +
+	"Kullanıcının kişisel verileri gizlilik politikası çerçevesinde saklanır ve yalnızca bilgilendirme amacıyla kullanılabilir.\n\n" +
+	"Site, kullanıcıların paylaşımlarından doğan hukuki ve cezai sorumluluk kabul etmez. Kullanıcı, paylaşımlarının üçüncü kişilerin haklarını ihlal etmediğini taahhüt eder.\n\n" +
+	"Kullanıcı, siteye üye olduğu anda işbu sözleşme yürürlüğe girer.";
+
+
+	$("#agreement").click(function(){
+	swal({
+		title: "Kullanıcı Sözleşmesi",
+		text: agreementText,
+		button: "Okudum, Onaylıyorum!"
+	});
+	});
+</script>

@@ -30,6 +30,7 @@ namespace BlogProject.BusinessLayer.Concrete
             return _writerDal.GetAll();
         }
 
+
         public Writer GetByIdBL(int id)
         {
           return _writerDal.GetById(id);

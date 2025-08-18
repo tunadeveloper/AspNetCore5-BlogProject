@@ -11,5 +11,6 @@ namespace BlogProject.BusinessLayer.Abstract
     {
         List<Blog> GetListWithCategoryBL();
         Blog GetByIdWithCategoryBL(int id);
+        List<Blog> GetBlogListByWriterBL(int id);
     }
 }

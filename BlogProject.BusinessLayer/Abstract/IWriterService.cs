@@ -9,5 +9,6 @@ namespace BlogProject.BusinessLayer.Abstract
 {
     public interface IWriterService:IGenericService<Writer>
     {
+       
     }
 }

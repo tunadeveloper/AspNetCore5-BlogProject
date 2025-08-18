@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogProject.BusinessLayer.Abstract;
 using BlogProject.BusinessLayer.Concrete;
+using BlogProject.BusinessLayer.ValidationRules;
 using BlogProject.DataAccessLayer.Abstract;
 using BlogProject.DataAccessLayer.Concrete;
 using BlogProject.DataAccessLayer.EntityFramework;
@@ -39,6 +40,11 @@ namespace BlogProject.PresentationLayer
 
             services.AddScoped<ICommentDal, EfCommentDal>();
             services.AddScoped<ICommentService, CommentManager>();
+
+            services.AddScoped<IWriterDal, EfWriterDal>();
+            services.AddScoped<IWriterService, WriterManager>();
+
+            services.AddScoped<WriterValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,5 +17,7 @@ namespace BlogProject.EntityLayer.Concrete
         public string WriterEmail { get; set; }
         public string WriterPassword { get; set; }
         public bool WriterStatus { get; set; }
+
+        public List<Writer> Writers { get; set; }
     }
 }
