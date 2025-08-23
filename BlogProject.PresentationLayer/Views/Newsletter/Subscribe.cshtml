@@ -1,0 +1,15 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model Newsletter
+
+<div class="tech-btm">
+    <h4>Bültenimize kaydolun</h4>
+    <p>Yeni gelişmelerden anında haberdar olun! </p>
+    @using (Html.BeginForm("Subscribe", "Newsletter", FormMethod.Post))
+    {
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "E-Posta Adresi" })
+        @Html.ValidationMessageFor(x=>x.Email,"", new {@class="text-danger"})
+        <br />
+        <input type="submit" value="Hemen Abone Ol">
+    }
+</div>
+

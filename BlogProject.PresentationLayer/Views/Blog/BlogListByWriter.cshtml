@@ -1,0 +1,55 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+
+}
+@model List<Blog>
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Bloglar</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Başlık</th>
+                                <th>Tarih</th>
+                                <th>Kategori</th>
+                                <th>Durum</th>
+                                <th>Sil</th>
+                                <th>Güncelle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@item.BlogId</td>
+                                    <td>@item.BlogTitle</td>
+                                    <td>@item.BlogCreateDate.ToShortDateString()</td>
+                                    <td>@item.Category.CategoryName</td>
+                                    @if (item.BlogStatus)
+                                    {
+                                        <td class="text-success">Aktif</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-danger">Pasif</td>
+                                    }
+                                    <td><a href="/Blog/DeleteBlog/@item.BlogId" class="btn btn-inverse-danger">Sil</a></td>
+                                    <td><a href="/Blog/UpdateBlog/@item.BlogId" class="btn btn-inverse-warning">Güncelle</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <a href="/Blog/CreateBlog/" class="btn btn-inverse-primary">Yeni Blog</a>
+            </div>
+        </div>
+    </div>
+</div>

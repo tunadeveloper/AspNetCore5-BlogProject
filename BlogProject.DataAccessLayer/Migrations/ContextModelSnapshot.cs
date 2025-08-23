@@ -172,6 +172,24 @@ namespace BlogProject.DataAccessLayer.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("BlogProject.EntityLayer.Concrete.Newsletter", b =>
+                {
+                    b.Property<int>("NewsletterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailStaus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("NewsletterId");
+
+                    b.ToTable("Newsletters");
+                });
+
             modelBuilder.Entity("BlogProject.EntityLayer.Concrete.Writer", b =>
                 {
                     b.Property<int>("WriterId")

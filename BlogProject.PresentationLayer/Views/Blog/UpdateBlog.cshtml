@@ -1,0 +1,52 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model Blog
+@{
+    ViewData["Title"] = "UpdateBlog";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<h2 class="mb-3">Yeni Blog Ekle</h2>
+
+@using (Html.BeginForm("UpdateBlog", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x => x.BlogId)
+    <div class="form-group mb-3">
+        @Html.LabelFor(x => x.BlogTitle, "Blog Başlığı")
+        @Html.TextBoxFor(x => x.BlogTitle, new { @class = "form-control", placeholder = "Başlık giriniz" })
+        @Html.ValidationMessageFor(x => x.BlogTitle, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(x => x.BlogImage, "Kapak Görseli URL")
+        @Html.TextBoxFor(x => x.BlogImage, new { @class = "form-control", placeholder = "Kapak görsel linki" })
+        @Html.ValidationMessageFor(x => x.BlogImage, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(x => x.BlogThumnailImage, "Thumbnail Görseli URL")
+        @Html.TextBoxFor(x => x.BlogThumnailImage, new { @class = "form-control", placeholder = "Thumbnail linki" })
+        @Html.ValidationMessageFor(x => x.BlogThumnailImage, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.Label("Kategori")
+        @Html.DropDownList("CategoryId", (List<SelectListItem>)ViewBag.Categories, "Kategori seçiniz", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(x => x.BlogContent, "İçerik")
+        @Html.TextAreaFor(x => x.BlogContent, 10, 50, new { @class = "form-control", placeholder = "İçeriği yazınız..." })
+        @Html.ValidationMessageFor(x => x.BlogContent, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.Label("Durum")
+        @Html.DropDownListFor(x=>x.BlogStatus, (List<SelectListItem>)ViewBag.Status, new {@class="form-control"})
+    </div>
+
+    
+
+    <button type="submit" class="btn btn-warning">Güncelle</button>
+}
+
+

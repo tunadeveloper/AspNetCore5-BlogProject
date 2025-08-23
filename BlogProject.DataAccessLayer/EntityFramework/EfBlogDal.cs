@@ -25,5 +25,18 @@ namespace BlogProject.DataAccessLayer.EntityFramework
                 .Include(b => b.Category)
                 .ToList();
         }
+
+        public List<Blog> GetLastBlog()
+        {
+            return _context.Blogs.OrderByDescending(x=>x.BlogId).Take(3).ToList();
+        }
+
+        public List<Blog> GetBlogListByWriter(int id)
+        {
+            return _context.Blogs
+                 .Where(x => x.WriterId == id)
+                 .Include(b => b.Category)
+                 .ToList();
+        }
     }
 }

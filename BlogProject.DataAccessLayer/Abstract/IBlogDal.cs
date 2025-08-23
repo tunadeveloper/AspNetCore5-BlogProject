@@ -10,5 +10,7 @@ namespace BlogProject.DataAccessLayer.Abstract
     public interface IBlogDal:IGenericDal<Blog>
     {
         List<Blog> GetListWithCategory();
+        List<Blog> GetBlogListByWriter(int id);
+        List<Blog> GetLastBlog();
     }
 }

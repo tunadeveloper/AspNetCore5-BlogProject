@@ -1,0 +1,53 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model About
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="banner-inner">
+</div>
+<ol class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="index.html">Anasayfa</a>
+	</li>
+	<li class="breadcrumb-item active">Bloglar</li>
+</ol>
+<section class="main-content-w3layouts-agileits">
+	<div class="container">
+		<h3 class="tittle">About</h3>
+		<div class="row inner-sec">
+			<!--left-->
+			<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+				<div class="blog-grid-top">
+
+					<div class="blog_info_left_grid">
+						<a href="single.html">
+							<img src="@Model.AboutImage2" class="img-fluid" alt="">
+						</a>
+					</div>
+					<h3>
+						Amet consectetur adipisicing
+					</h3>
+					<p>
+						@Model.AboutDetail1
+						@Model.AboutDetail2
+					</p>
+				</div>
+			</div>
+			<!--//left-->
+			<!--right-->
+			<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+				<div class="right-blog-info text-left">
+					<div class="tech-btm">
+						<img src="@Model.AboutImage1" class="img-fluid" alt="">
+					</div>
+					@await Html.PartialAsync("/Views/Newsletter/Subscribe.cshtml", new Newsletter())
+					@await Html.PartialAsync("/Views/About/SocialMediaPartial.cshtml")
+				</div>
+			</aside>
+			<!--//right-->
+		</div>
+	</div>
+</section>
+
+

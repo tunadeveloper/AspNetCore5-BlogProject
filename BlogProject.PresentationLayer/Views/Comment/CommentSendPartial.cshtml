@@ -1,0 +1,17 @@
+﻿@model BlogProject.EntityLayer.Concrete.Comment
+<div class="comment-top">
+	<h4>Düşüncelerin Neler?</h4>
+	<br /> <br />
+	<div class="comment-bottom">
+		@using (Html.BeginForm("CreateComment", "Comment", FormMethod.Post))
+		{
+			 @Html.TextBoxFor(x=>x.CommentUsername, new{@class="form-control", placeholder="İsim Soyisim"}) 
+			 <br />
+			@Html.TextBoxFor(x => x.CommentTitle, new { @class = "form-control", placeholder = "Başlık" })
+			<br />
+			@Html.TextAreaFor(x => x.CommentContent, new { @class = "form-control", placeholder = "Detay..." })
+			<br />
+			<button type="submit" class="btn btn-primary submit">Gönder</button>
+		}
+	</div>
+</div>

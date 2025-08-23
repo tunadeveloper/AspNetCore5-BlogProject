@@ -31,7 +31,7 @@ namespace BlogProject.BusinessLayer.Concrete
 
         public List<Blog> GetBlogListByWriterBL(int id)
         {
-            return _blogDal.List(x => x.WriterId == id);
+            return _blogDal.GetBlogListByWriter(id);
         }
 
         public Blog GetByIdBL(int id)
@@ -43,6 +43,11 @@ namespace BlogProject.BusinessLayer.Concrete
         {
             return _blogDal.GetListWithCategory()
                  .FirstOrDefault(b => b.BlogId == id);
+        }
+
+        public List<Blog> GetLastBlogBL()
+        {
+            return _blogDal.GetLastBlog();
         }
 
         public List<Blog> GetListWithCategoryBL()
