@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CategoryBlogCountViewModel>
+@{
+    var maxBlogCount = Model.Max(x => (int)x.BlogCount);
+}
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Project Status</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Kategori Adı</th>
+                                <th>Blog Sayısı</th>
+                                <th>Oran</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                var width = (int)item.BlogCount * 100 / maxBlogCount;
+                                <tr>
+                                    <td>@item.CategoryName</td>
+                                    <td><label class="badge badge-gradient-danger">@item.BlogCount</label></td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-success" role="progressbar"
+                                                 style="width:@width%" aria-valuenow="@width" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

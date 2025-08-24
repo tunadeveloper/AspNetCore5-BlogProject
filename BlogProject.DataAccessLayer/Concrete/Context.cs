@@ -22,6 +22,7 @@ namespace BlogProject.DataAccessLayer.Concrete
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
+        public DbSet<BlogRayting> BlogRaytings { get; set; }
 
     }
 }

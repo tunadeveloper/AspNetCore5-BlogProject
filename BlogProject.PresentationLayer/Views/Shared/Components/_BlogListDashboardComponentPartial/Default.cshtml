@@ -1,0 +1,35 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model List<Blog>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Son 5 Blog</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> # </th>
+                                <th> Başlık </th>
+                                <th> Kategori </th>
+                                <th> Tarih </th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          @foreach(var item in Model){
+                              <tr>
+                                  <td><img src="@item.BlogThumnailImage" alt="@item.BlogTitle" class="mr-2"/></td>
+                                  <td>@(item.BlogTitle.Length >= 50 ? item.BlogTitle.Substring(0,50) + "..." : item.BlogTitle)</td>
+                                  <td><label class="badge badge-gradient-dark">@item.Category.CategoryName</label></td>
+                                  <td>@item.BlogCreateDate.ToShortDateString()</td>
+                                    <td><a href="/Blog/BlogDetails/@item.BlogId" class="btn btn-inverse-primary">Bloğa Git</a></td>
+                              </tr>
+                          }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

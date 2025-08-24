@@ -32,7 +32,7 @@
                                     <td>@item.BlogId</td>
                                     <td>@item.BlogTitle</td>
                                     <td>@item.BlogCreateDate.ToShortDateString()</td>
-                                    <td>@item.Category.CategoryName</td>
+                                    <td><p class="badge badge-gradient-dark">@item.Category.CategoryName</p></td>
                                     @if (item.BlogStatus)
                                     {
                                         <td class="text-success">Aktif</td>
