@@ -1,0 +1,63 @@
+﻿@model BlogProject.DTOLayer.WriterDtos.WriterPasswordUpdateDto
+@{
+    ViewData["Title"] = "Profil Güncelleme";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Profil Güncelleme</h4>
+            <p class="card-description">Bilgilerinizi güncelleyebilirsiniz</p>
+
+            @using (Html.BeginForm("WriterProfile", "Writer", FormMethod.Post, new { @class = "forms-sample" }))
+            {
+                @Html.HiddenFor(m => m.WriterId)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.WriterName)
+                    @Html.TextBoxFor(m => m.WriterName, new { @class = "form-control", placeholder = "Ad Soyad" })
+                    @Html.ValidationMessageFor(m => m.WriterName, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.WriterEmail)
+                    @Html.TextBoxFor(m => m.WriterEmail, new { @class = "form-control", placeholder = "E-posta" })
+                    @Html.ValidationMessageFor(m => m.WriterEmail, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OldPassword, "Eski Şifre (isteğe bağlı)")
+                    @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", placeholder = "Eski şifrenizi giriniz" })
+                    @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NewPassword, "Yeni Şifre")
+                    @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", placeholder = "Yeni şifre" })
+                    @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, "Yeni Şifre Tekrar")
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Yeni şifreyi tekrar giriniz" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.WriterAbout, "Hakkında")
+                    @Html.TextAreaFor(m => m.WriterAbout, 4, 50, new { @class = "form-control", placeholder = "Hakkınızda kısa bir bilgi" })
+                    @Html.ValidationMessageFor(m => m.WriterAbout, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.WriterImage, "Görsel URL")
+                    @Html.TextBoxFor(m => m.WriterImage, new { @class = "form-control", placeholder = "Görsel URL" })
+                    @Html.ValidationMessageFor(m => m.WriterImage, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
+            }
+        </div>
+    </div>
+</div>

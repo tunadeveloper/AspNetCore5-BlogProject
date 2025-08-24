@@ -85,6 +85,7 @@ namespace BlogProject.PresentationLayer
             services.AddScoped<WriterValidator>();
             services.AddScoped<NewsletterValidator>();
             services.AddScoped<BlogValidator>();
+            services.AddScoped<WriterPasswordUpdateValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,7 +102,7 @@ namespace BlogProject.PresentationLayer
                 app.UseHsts();
             }
             app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogProject.DataAccessLayer\BlogProject.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\BlogProject.DTOLayer\BlogProject.DTOLayer.csproj" />
     <ProjectReference Include="..\BlogProject.EntityLayer\BlogProject.EntityLayer.csproj" />
   </ItemGroup>
 
