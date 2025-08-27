@@ -1,0 +1,47 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model List<Message2>
+@{
+    ViewData["Title"] = "InBox";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Bloglar</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Gönderen</th>
+                                <th>Konu</th>
+                                <th>Tarih</th>
+                                <th>Sil</th>
+                                <th>Mesajı Aç</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td><img src="@item.SenderUser.WriterImage" alt="@item.SenderUser.WriterImage" class="mr-2" /></td>
+                                    <td>@item.Subject</td>
+                                    <td>@item.SenderUser.WriterName</td>
+                                    <td><p class="badge badge-gradient-dark">@item.CreatedDate.ToShortDateString()</p></td>
+
+                                    <td><a href="/Message/DeleteMessage/@item.MessageId" class="btn btn-inverse-danger">Sil</a></td>
+                                    <td><a href="/Message/MessageDetails/@item.MessageId" class="btn btn-inverse-warning">Mesajı Gör</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <a href="/Message/CreateMessage/" class="btn btn-inverse-primary">Yeni Mesaj</a>
+            </div>
+        </div>
+    </div>
+</div>
+

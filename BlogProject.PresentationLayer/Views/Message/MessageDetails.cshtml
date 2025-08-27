@@ -1,0 +1,40 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model Message2
+
+@{
+    ViewData["Title"] = "Mesaj Detayları";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Mesaj Detayları</h4>
+
+                <div class="d-flex align-items-center mb-4">
+                    <img src="@Model.SenderUser.WriterImage"
+                         alt="@Model.SenderUser.WriterName"
+                         class="rounded-circle mr-3" width="60" height="60" />
+                    <div>
+                        <h5 class="mb-0">@Model.SenderUser.WriterName</h5>
+                        <small class="text-muted">@Model.CreatedDate.ToString("dd MMM yyyy HH:mm")</small>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="font-weight-bold">Konu:</h6>
+                    <p>@Model.Subject</p>
+                </div>
+
+                <div class="mb-3">
+                    <h6 class="font-weight-bold">Mesaj:</h6>
+                    <p>@Model.Content</p>
+                </div>
+
+                <a href="/Message/InBox/" class="btn btn-inverse-primary">←  Geri Dön</a>
+                <a href="/Message/DeleteMessage/@Model.MessageId" class="btn btn-inverse-danger">Sil</a>
+            </div>
+        </div>
+    </div>
+</div>

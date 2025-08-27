@@ -43,7 +43,7 @@
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Yeni şifreyi tekrar giriniz" })
                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
-
+                 
                 <div class="form-group">
                     @Html.LabelFor(m => m.WriterAbout, "Hakkında")
                     @Html.TextAreaFor(m => m.WriterAbout, 4, 50, new { @class = "form-control", placeholder = "Hakkınızda kısa bir bilgi" })

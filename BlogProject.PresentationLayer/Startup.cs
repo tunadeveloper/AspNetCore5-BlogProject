@@ -82,6 +82,9 @@ namespace BlogProject.PresentationLayer
             services.AddScoped<IContactDal, EfContactDal>();
             services.AddScoped<IContactService, ContactManager>();
 
+            services.AddScoped<IMessageService, MessageManager>();
+            services.AddScoped<IMessageDal, EfMessageDal>();
+
             services.AddScoped<WriterValidator>();
             services.AddScoped<NewsletterValidator>();
             services.AddScoped<BlogValidator>();
