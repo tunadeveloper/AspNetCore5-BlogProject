@@ -39,7 +39,7 @@ namespace BlogProject.PresentationLayer
                 var policy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
                 .Build();
-               
+
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
@@ -51,8 +51,8 @@ namespace BlogProject.PresentationLayer
                 {
                     x.LoginPath = "/Login/Index";
                     x.Cookie.Name = "BlogAuthCookie";
-                    x.Cookie.HttpOnly = true;    
-                    x.Cookie.SameSite = SameSiteMode.Lax; 
+                    x.Cookie.HttpOnly = true;
+                    x.Cookie.SameSite = SameSiteMode.Lax;
                     x.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     x.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
                     x.ReturnUrlParameter = "returnUrl";
@@ -105,7 +105,7 @@ namespace BlogProject.PresentationLayer
                 app.UseHsts();
             }
             app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
-            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -119,8 +119,13 @@ namespace BlogProject.PresentationLayer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+           name: "areas",
+           pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapControllerRoute(
+                     name: "default",
+                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

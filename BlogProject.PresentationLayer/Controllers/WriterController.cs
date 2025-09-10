@@ -23,6 +23,13 @@ namespace BlogProject.PresentationLayer.Controllers
             _writerValidator = writerValidator;
         }
 
+        public IActionResult Index()
+        {
+            var usermail = User.Identity.Name;
+            ViewBag.v = usermail;
+            return View();
+        }
+
         public IActionResult _WriterLayout()
         {
             return View();

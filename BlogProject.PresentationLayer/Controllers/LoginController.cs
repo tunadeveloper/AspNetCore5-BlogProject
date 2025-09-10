@@ -41,7 +41,7 @@ namespace BlogProject.PresentationLayer.Controllers
                 var userIdentity=new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
-                return RedirectToAction("BlogListByWriter", "Blog");
+                return RedirectToAction("Index", "Dashboard");
             }
             return View();
         }

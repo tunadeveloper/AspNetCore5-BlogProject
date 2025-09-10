@@ -1,5 +1,6 @@
 ﻿using BlogProject.BusinessLayer.Abstract;
 using BlogProject.BusinessLayer.ValidationRules;
+using BlogProject.DataAccessLayer.Concrete;
 using BlogProject.EntityLayer.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
@@ -19,12 +20,14 @@ namespace BlogProject.PresentationLayer.Controllers
         private readonly ICommentService _commentService;
         private readonly ICategoryService _categoryService;
         private readonly BlogValidator _blogValidator;
-        public BlogController(IBlogService blogService, ICommentService commentService, ICategoryService categoryService, BlogValidator validator)
+        private readonly Context _context;
+        public BlogController(IBlogService blogService, ICommentService commentService, ICategoryService categoryService, BlogValidator validator, Context context)
         {
             _blogService = blogService;
             _commentService = commentService;
             _categoryService = categoryService;
             _blogValidator = validator;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -42,7 +45,9 @@ namespace BlogProject.PresentationLayer.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var values = _blogService.GetBlogListByWriterBL(1);
+            var userEmail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            var values = _blogService.GetBlogListByWriterBL(writerID);
             return View(values);
         }
 
@@ -62,11 +67,13 @@ namespace BlogProject.PresentationLayer.Controllers
         [HttpPost]
         public IActionResult CreateBlog(Blog blog)
         {
+            var userEmail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
             var result = _blogValidator.Validate(blog);
             if (result.IsValid)
             {
                 blog.BlogCreateDate = System.DateTime.Now;
-                blog.WriterId = 1;
+                blog.WriterId = writerID;
                 blog.BlogStatus = true;
                 _blogService.InsertBL(blog);
                 return RedirectToAction("BlogListByWriter", "Blog");
@@ -111,11 +118,13 @@ namespace BlogProject.PresentationLayer.Controllers
         [HttpPost]
         public IActionResult UpdateBlog(Blog blog)
         {
+            var userEmail = User.Identity.Name;
+            var writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
             var result = _blogValidator.Validate(blog);
             if (result.IsValid)
             {
                 blog.BlogCreateDate = System.DateTime.Now;
-                blog.WriterId = 1;
+                blog.WriterId = writerID;
                 _blogService.UpdateBL(blog);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
