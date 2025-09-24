@@ -1,0 +1,125 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@model IPagedList<Category>
+
+@{
+    ViewData["Title"] = "Kategori Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<a href="/Admin/Category/CreateCategory/" class="btn btn-success">Kategori Ekle</a>
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Kategoriler</h5>
+            </div>
+            <div class="ibox-content">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kategori Adı</th>
+                            <th>Açıklama</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CategoryId</td>
+                                <td>@item.CategoryName</td>
+                                <td>@item.CategoryDescription</td>
+                                <td>
+                                    @if (item.CategoryStatus)
+                                    {
+                                        <span class="badge badge-success">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Pasif</span>
+                                    }
+                                </td>
+                                <td>
+                                    <form class="statusForm" data-id="@item.CategoryId" data-status="@(item.CategoryStatus ? false : true)" style="display:inline;">
+                                        <button type="button" class="btn btn-sm @(item.CategoryStatus ? "btn-danger" : "btn-primary")">
+                                            @(item.CategoryStatus ? "Pasif Yap" : "Aktif Et")
+                                        </button>
+                                    </form>
+
+
+                                    <a href="/Admin/Category/UpdateCategory/@item.CategoryId"
+                                       class="btn btn-success btn-sm ml-2">
+                                        Düzenle
+                                    </a>
+                                    <a href="/Admin/Category/DeleteCategory/@item.CategoryId"
+                                       class="btn btn-warning btn-sm ml-2 deleteBtn">
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+     document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll(".deleteBtn");
+
+        deleteButtons.forEach(function(btn){
+            btn.addEventListener("click", function(e){
+                e.preventDefault();
+                const url = this.href;
+
+                Swal.fire({
+                    title: 'Silmek istediğinize emin misiniz?',
+                    text: "Bu işlem geri alınamaz!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'İptal'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    });
+
+    $(document).ready(function(){
+        $(".statusForm button").click(function(){
+            var form = $(this).closest(".statusForm");
+            var id = form.data("id");
+            var status = form.data("status");
+
+            $.post("/Admin/Category/ChangeStatus", { id: id, status: status }, function(response){
+                if(response.success){
+                    if(response.newStatus){
+                        form.find("button").text("Pasif Yap").removeClass("btn-success").addClass("btn-danger");
+                        form.data("status", false);
+                        form.closest("tr").find("td:eq(3)").html('<span class="badge badge-success">Aktif</span>');
+                    } else {
+                        form.find("button").text("Aktif Et").removeClass("btn-danger").addClass("btn-success");
+                        form.data("status", true);
+                        form.closest("tr").find("td:eq(3)").html('<span class="badge badge-danger">Pasif</span>');
+                    }
+                } else {
+                    alert("Hata oluştu!");
+                }
+            });
+        });
+    });
+</script>
