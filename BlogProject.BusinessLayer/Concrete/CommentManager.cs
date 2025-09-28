@@ -35,6 +35,11 @@ namespace BlogProject.BusinessLayer.Concrete
            return _commentDal.GetById(id);
         }
 
+        public List<Comment> GetCommentWithBlog()
+        {
+            return _commentDal.GetCommentWithBlog();
+        }
+
         public void InsertBL(Comment entity)
         {
            _commentDal.Insert(entity);

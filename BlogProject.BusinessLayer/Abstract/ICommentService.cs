@@ -9,5 +9,6 @@ namespace BlogProject.BusinessLayer.Abstract
 {
     public interface ICommentService: IGenericService<Comment>
     {
+        List<Comment> GetCommentWithBlog();
     }
 }

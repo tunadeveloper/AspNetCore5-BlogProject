@@ -1,0 +1,45 @@
+﻿@model BlogProject.EntityLayer.Concrete.Contact
+
+@{
+    ViewData["Title"] = "Contact Güncelleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Contact Güncelleme</h2>
+    <form asp-action="Index" asp-controller="Contact" asp-area="Admin" method="post">
+        <input type="hidden" name="ContactId" value="@Model.ContactId" />
+
+        <div class="mb-3">
+            <label class="form-label">Kullanıcı Adı</label>
+            <input type="text" name="ContactUsername" class="form-control" value="@Model.ContactUsername" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="ContactEmail" class="form-control" value="@Model.ContactEmail" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Konu</label>
+            <input type="text" name="ContactSubject" class="form-control" value="@Model.ContactSubject" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mesaj</label>
+            <textarea name="ContactMessage" class="form-control" rows="3" required>@Model.ContactMessage</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tarih</label>
+            <input type="datetime-local" name="ContactDate" class="form-control" value="@Model.ContactDate.ToString("yyyy-MM-ddTHH:mm")" required />
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" name="ContactStatus" class="form-check-input" @(Model.ContactStatus ? "checked" : "") />
+            <label class="form-check-label">Aktif</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    </form>
+</div>

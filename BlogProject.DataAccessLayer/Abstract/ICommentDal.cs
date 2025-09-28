@@ -9,5 +9,6 @@ namespace BlogProject.DataAccessLayer.Abstract
 {
     public interface ICommentDal:IGenericDal<Comment>
     {
+        List<Comment> GetCommentWithBlog();
     }
 }

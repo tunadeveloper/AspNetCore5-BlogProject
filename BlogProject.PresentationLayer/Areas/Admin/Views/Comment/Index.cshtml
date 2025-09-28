@@ -1,0 +1,116 @@
+﻿@using BlogProject.EntityLayer.Concrete
+@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Yorumlar</h5>
+            </div>
+            <div class="ibox-content">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Yorum Başlığı</th>
+                            <th>Blog</th>
+                            <th>Tarih</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CommentId</td>
+                                <td>@item.CommentTitle</td>
+                                <td>@item.Blog.BlogTitle</td>
+                                <td>
+                                    @if (item.CommentStatus)
+                                    {
+                                        <span class="badge badge-success">Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Pasif</span>
+                                    }
+                                </td>
+                                <td>
+                                    <form class="statusForm" data-id="@item.CommentId" data-status="@(item.CommentStatus ? false : true)" style="display:inline;">
+                                        <button type="button" class="btn btn-sm @(item.CommentStatus ? "btn-danger" : "btn-primary")">
+                                            @(item.CommentStatus ? "Pasif Yap" : "Aktif Et")
+                                        </button>
+                                    </form>
+
+
+                                    <a href="/Admin/Comment/DeleteComment/@item.CommentId"
+                                       class="btn btn-warning btn-sm ml-2 deleteBtn">
+                                        Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+     document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll(".deleteBtn");
+
+        deleteButtons.forEach(function(btn){
+            btn.addEventListener("click", function(e){
+                e.preventDefault();
+                const url = this.href;
+
+                Swal.fire({
+                    title: 'Silmek istediğinize emin misiniz?',
+                    text: "Bu işlem geri alınamaz!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'İptal'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    });
+
+    $(document).ready(function(){
+        $(".statusForm button").click(function(){
+            var form = $(this).closest(".statusForm");
+            var id = form.data("id");
+            var status = form.data("status");
+
+            $.post("/Admin/Comment/ChangeStatus", { id: id, status: status }, function(response){
+                if(response.success){
+                    if(response.newStatus){
+                        form.find("button").text("Pasif Yap").removeClass("btn-success").addClass("btn-danger");
+                        form.data("status", false);
+                        form.closest("tr").find("td:eq(3)").html('<span class="badge badge-success">Aktif</span>');
+                    } else {
+                        form.find("button").text("Aktif Et").removeClass("btn-danger").addClass("btn-success");
+                        form.data("status", true);
+                        form.closest("tr").find("td:eq(3)").html('<span class="badge badge-danger">Pasif</span>');
+                    }
+                } else {
+                    alert("Hata oluştu!");
+                }
+            });
+        });
+    });
+</script>
