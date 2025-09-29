@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
+    [AllowAnonymous]
     public class NewsletterController : Controller
     {
         private readonly INewsletterService _newsletterService;

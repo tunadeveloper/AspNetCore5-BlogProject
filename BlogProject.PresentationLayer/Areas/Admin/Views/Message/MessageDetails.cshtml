@@ -1,0 +1,83 @@
+@model BlogProject.EntityLayer.Concrete.Message2
+@{
+    ViewData["Title"] = "Mesaj Detayları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Mesaj Detayları</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Mesaj Bilgileri</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td><strong>ID:</strong></td>
+                                            <td>@Model.MessageId</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Gönderen:</strong></td>
+                                            <td>@(Model.SenderUser?.WriterName ?? "Bilinmiyor") (@Model.SenderId)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Alıcı:</strong></td>
+                                            <td>@(Model.ReceiverUser?.WriterName ?? "Bilinmiyor") (@Model.ReceiverId)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Konu:</strong></td>
+                                            <td>@Model.Subject</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tarih:</strong></td>
+                                            <td>@Model.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Durum:</strong></td>
+                                            <td>
+                                                @if (Model.Status)
+                                                {
+                                                    <span class="badge badge-success">Aktif</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-danger">Pasif</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>İçerik:</strong></td>
+                                            <td>
+                                                <div class="border p-3 bg-light">
+                                                    @Html.Raw(Model.Content?.Replace("\n", "<br>"))
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <a href="/Admin/Message/UpdateMessage/@Model.MessageId" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Düzenle
+                            </a>
+                            <a href="/Admin/Message/Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Geri Dön
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

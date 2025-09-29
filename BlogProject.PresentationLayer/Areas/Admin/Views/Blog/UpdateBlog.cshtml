@@ -1,0 +1,86 @@
+@model BlogProject.EntityLayer.Concrete.Blog
+@{
+    ViewData["Title"] = "Blog Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Blog Yazısı Düzenle</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="UpdateBlog" method="post">
+                        <input asp-for="BlogId" type="hidden" value="@Model.BlogId" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BlogTitle">Blog Başlığı</label>
+                                    <input asp-for="BlogTitle" class="form-control" value="@Model.BlogTitle" placeholder="Blog başlığını giriniz" />
+                                    <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CategoryId">Kategori</label>
+                                    <select asp-for="CategoryId" class="form-control" >
+                                        <option value="@Model.Category">Kategori Seçiniz</option>
+                                        @foreach (var category in ViewBag.Categories)
+                                        {
+                                            <option value="@category.CategoryId">@category.CategoryName</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="WriterId">Yazar ID</label>
+                                    <input asp-for="WriterId" type="number" value="@Model.WriterId" class="form-control" placeholder="Yazar ID'sini giriniz" />
+                                    <span asp-validation-for="WriterId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BlogThumnailImage">Küçük Resim URL</label>
+                                    <input asp-for="BlogThumnailImage" class="form-control" value="@Model.BlogThumnailImage" placeholder="Küçük resim URL'sini giriniz" />
+                                    <span asp-validation-for="BlogThumnailImage" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BlogImage">Ana Resim URL</label>
+                                    <input asp-for="BlogImage" class="form-control" value="@Model.BlogImage" placeholder="Ana resim URL'sini giriniz" />
+                                    <span asp-validation-for="BlogImage" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="BlogContent">Blog İçeriği</label>
+                                    <textarea asp-for="BlogContent" class="form-control" rows="10" placeholder="Blog içeriğini giriniz">@Model.BlogContent</textarea>
+                                    <span asp-validation-for="BlogContent" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Güncelle
+                            </button>
+                            <a href="/Admin/Blog/Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Geri Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

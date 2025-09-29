@@ -4,12 +4,14 @@ using BlogProject.DataAccessLayer.Concrete;
 using BlogProject.EntityLayer.Concrete;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Principal;
+using System.Threading.Tasks;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
@@ -21,13 +23,16 @@ namespace BlogProject.PresentationLayer.Controllers
         private readonly ICategoryService _categoryService;
         private readonly BlogValidator _blogValidator;
         private readonly Context _context;
-        public BlogController(IBlogService blogService, ICommentService commentService, ICategoryService categoryService, BlogValidator validator, Context context)
+        private readonly UserManager<IdentityUser<int>> _userManager;
+
+        public BlogController(IBlogService blogService, ICommentService commentService, ICategoryService categoryService, BlogValidator validator, Context context, UserManager<IdentityUser<int>> userManager)
         {
             _blogService = blogService;
             _commentService = commentService;
             _categoryService = categoryService;
             _blogValidator = validator;
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -43,10 +48,21 @@ namespace BlogProject.PresentationLayer.Controllers
             return View(values);
         }
 
-        public IActionResult BlogListByWriter()
+        public async Task<IActionResult> BlogListByWriter()
         {
-            var userEmail = User.Identity.Name;
-            var writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            var user = await _userManager.GetUserAsync(User);
+            int writerID = 0;
+            
+            if (user != null)
+            {
+                writerID = user.Id;
+            }
+            else
+            {
+                var userEmail = User.Identity.Name;
+                writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            }
+            
             var values = _blogService.GetBlogListByWriterBL(writerID);
             return View(values);
         }
@@ -65,10 +81,21 @@ namespace BlogProject.PresentationLayer.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBlog(Blog blog)
+        public async Task<IActionResult> CreateBlog(Blog blog)
         {
-            var userEmail = User.Identity.Name;
-            var writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            var user = await _userManager.GetUserAsync(User);
+            int writerID = 0;
+            
+            if (user != null)
+            {
+                writerID = user.Id;
+            }
+            else
+            {
+                var userEmail = User.Identity.Name;
+                writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            }
+            
             var result = _blogValidator.Validate(blog);
             if (result.IsValid)
             {
@@ -116,10 +143,21 @@ namespace BlogProject.PresentationLayer.Controllers
             return View(values);
         }
         [HttpPost]
-        public IActionResult UpdateBlog(Blog blog)
+        public async Task<IActionResult> UpdateBlog(Blog blog)
         {
-            var userEmail = User.Identity.Name;
-            var writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            var user = await _userManager.GetUserAsync(User);
+            int writerID = 0;
+            
+            if (user != null)
+            {
+                writerID = user.Id;
+            }
+            else
+            {
+                var userEmail = User.Identity.Name;
+                writerID = _context.Writers.Where(x => x.WriterEmail == userEmail).Select(x => x.WriterId).FirstOrDefault();
+            }
+            
             var result = _blogValidator.Validate(blog);
             if (result.IsValid)
             {

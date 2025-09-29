@@ -23,5 +23,22 @@ namespace BlogProject.DataAccessLayer.EntityFramework
         {
             return _context.Messages2.Include(z=>z.SenderUser).Where(x => x.ReceiverId == id).ToList();
         }
+
+        public new List<Message2> GetAll()
+        {
+            return _context.Messages2
+                .Include(x => x.SenderUser)
+                .Include(x => x.ReceiverUser)
+                .OrderByDescending(x => x.CreatedDate)
+                .ToList();
+        }
+
+        public new Message2 GetById(int id)
+        {
+            return _context.Messages2
+                .Include(x => x.SenderUser)
+                .Include(x => x.ReceiverUser)
+                .FirstOrDefault(x => x.MessageId == id);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BlogProject.BusinessLayer.Abstract;
 using BlogProject.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using X.PagedList;
@@ -8,6 +9,7 @@ using X.PagedList.Extensions;
 namespace BlogProject.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

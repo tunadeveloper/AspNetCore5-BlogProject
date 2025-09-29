@@ -1,0 +1,70 @@
+@model BlogProject.EntityLayer.Concrete.About
+@{
+    ViewData["Title"] = "Yeni Hakkımızda Sayfası";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni Hakkımızda Sayfası Ekle</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateAbout" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="AboutDetail1">Hakkımızda Detay 1</label>
+                                    <textarea asp-for="AboutDetail1" class="form-control" rows="5" placeholder="İlk detay metnini giriniz"></textarea>
+                                    <span asp-validation-for="AboutDetail1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="AboutDetail2">Hakkımızda Detay 2</label>
+                                    <textarea asp-for="AboutDetail2" class="form-control" rows="5" placeholder="İkinci detay metnini giriniz"></textarea>
+                                    <span asp-validation-for="AboutDetail2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="AboutImage1">Resim 1 URL</label>
+                                    <input asp-for="AboutImage1" class="form-control" placeholder="İlk resim URL'sini giriniz" />
+                                    <span asp-validation-for="AboutImage1" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="AboutImage2">Resim 2 URL</label>
+                                    <input asp-for="AboutImage2" class="form-control" placeholder="İkinci resim URL'sini giriniz" />
+                                    <span asp-validation-for="AboutImage2" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="AboutMapLocation">Harita Konumu</label>
+                                    <input asp-for="AboutMapLocation" class="form-control" placeholder="Google Maps embed kodunu giriniz" />
+                                    <span asp-validation-for="AboutMapLocation" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Kaydet
+                            </button>
+                            <a href="/Admin/About/Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Geri Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

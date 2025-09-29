@@ -26,7 +26,7 @@ namespace BlogProject.BusinessLayer.Concrete
 
         public List<Message2> GetAllBL()
         {
-            throw new NotImplementedException();
+            return _messageDal.GetAll();
         }
 
         public Message2 GetByIdBL(int id)
@@ -46,12 +46,12 @@ namespace BlogProject.BusinessLayer.Concrete
 
         public List<Message2> List(Expression<Func<Message2, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _messageDal.List(filter);
         }
 
         public void UpdateBL(Message2 entity)
         {
-            throw new NotImplementedException();
+            _messageDal.Update(entity);
         }
     }
 }

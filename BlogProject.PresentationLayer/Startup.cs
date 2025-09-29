@@ -8,12 +8,14 @@ using BlogProject.BusinessLayer.ValidationRules;
 using BlogProject.DataAccessLayer.Abstract;
 using BlogProject.DataAccessLayer.Concrete;
 using BlogProject.DataAccessLayer.EntityFramework;
+using BlogProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,31 +36,53 @@ namespace BlogProject.PresentationLayer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddMvc(config =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .Build();
-
-                config.Filters.Add(new AuthorizeFilter(policy));
-            });
-
             services.AddMvc();
             services.AddSession();
-            services.AddAuthentication(
-                CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(x =>
-                {
-                    x.LoginPath = "/Login/Index";
-                    x.Cookie.Name = "BlogAuthCookie";
-                    x.Cookie.HttpOnly = true;
-                    x.Cookie.SameSite = SameSiteMode.Lax;
-                    x.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                    x.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
-                    x.ReturnUrlParameter = "returnUrl";
-                }
-                );
 
+            // Identity servisleri
+            services.AddIdentity<IdentityUser<int>, IdentityRole<int>>(options =>
+            {
+                // Password ayarları
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 3;
+                
+                // User ayarları
+                options.User.RequireUniqueEmail = true;
+                
+                // Lockout ayarları
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+            })
+            .AddEntityFrameworkStores<Context>()
+            .AddDefaultTokenProviders();
+
+            // Identity Cookie ayarları
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Login/Index";
+                options.LogoutPath = "/Login/Index";
+                options.AccessDeniedPath = "/Login/Index";
+                options.Cookie.Name = "BlogIdentityCookie";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
+                options.ReturnUrlParameter = "returnUrl";
+            });
+
+            // Eski Cookie Authentication (Writer kullanıcıları için)
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie("WriterAuth", options =>
+                {
+                    options.LoginPath = "/Login/Index";
+                    options.Cookie.Name = "BlogWriterCookie";
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Lax;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(1000);
+                    options.ReturnUrlParameter = "returnUrl";
+                });
 
             services.AddDbContext<Context>();
             services.AddScoped<ICategoryDal, EfCategoryDal>();

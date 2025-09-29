@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
+    [AllowAnonymous]
     public class AdminController : Controller
     {
         public IActionResult Index()

@@ -1,0 +1,85 @@
+@model BlogProject.EntityLayer.Concrete.Blog
+@{
+    ViewData["Title"] = "Yeni Blog";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni Blog Yazısı Ekle</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateBlog" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BlogTitle">Blog Başlığı</label>
+                                    <input asp-for="BlogTitle" class="form-control" placeholder="Blog başlığını giriniz" />
+                                    <span asp-validation-for="BlogTitle" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="CategoryId">Kategori</label>
+                                    <select asp-for="CategoryId" class="form-control">
+                                        <option value="">Kategori Seçiniz</option>
+                                        @foreach (var category in ViewBag.Categories)
+                                        {
+                                            <option value="@category.CategoryId">@category.CategoryName</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="WriterId">Yazar ID</label>
+                                    <input asp-for="WriterId" type="number" class="form-control" placeholder="Yazar ID'sini giriniz" />
+                                    <span asp-validation-for="WriterId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BlogThumnailImage">Küçük Resim URL</label>
+                                    <input asp-for="BlogThumnailImage" class="form-control" placeholder="Küçük resim URL'sini giriniz" />
+                                    <span asp-validation-for="BlogThumnailImage" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BlogImage">Ana Resim URL</label>
+                                    <input asp-for="BlogImage" class="form-control" placeholder="Ana resim URL'sini giriniz" />
+                                    <span asp-validation-for="BlogImage" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="BlogContent">Blog İçeriği</label>
+                                    <textarea asp-for="BlogContent" class="form-control" rows="10" placeholder="Blog içeriğini giriniz"></textarea>
+                                    <span asp-validation-for="BlogContent" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Kaydet
+                            </button>
+                            <a href="/Admin/Blog/Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Geri Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

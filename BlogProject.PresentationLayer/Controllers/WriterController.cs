@@ -6,8 +6,10 @@ using BlogProject.EntityLayer.Concrete;
 using BlogProject.PresentationLayer.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
@@ -16,11 +18,13 @@ namespace BlogProject.PresentationLayer.Controllers
     {
         private readonly IWriterService _writerService;
         private readonly WriterPasswordUpdateValidator _writerValidator;
+        private readonly UserManager<IdentityUser<int>> _userManager;
 
-        public WriterController(IWriterService writerService, WriterPasswordUpdateValidator writerValidator)
+        public WriterController(IWriterService writerService, WriterPasswordUpdateValidator writerValidator, UserManager<IdentityUser<int>> userManager)
         {
             _writerService = writerService;
             _writerValidator = writerValidator;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -60,10 +64,25 @@ namespace BlogProject.PresentationLayer.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult WriterProfile()
+        public async Task<IActionResult> WriterProfile()
         {
-            var userMail = User.Identity.Name;
-            var currentWriter = _writerService.List(x => x.WriterEmail == userMail).FirstOrDefault();
+            var user = await _userManager.GetUserAsync(User);
+            Writer currentWriter = null;
+            
+            if (user != null)
+            {
+                currentWriter = _writerService.GetByIdBL(user.Id);
+            }
+            else
+            {
+                var userMail = User.Identity.Name;
+                currentWriter = _writerService.List(x => x.WriterEmail == userMail).FirstOrDefault();
+            }
+
+            if (currentWriter == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
 
             var model = new WriterPasswordUpdateDto
             {
@@ -80,14 +99,37 @@ namespace BlogProject.PresentationLayer.Controllers
 
 
         [HttpPost]
-        public IActionResult WriterProfile(WriterPasswordUpdateDto model)
+        public async Task<IActionResult> WriterProfile(WriterPasswordUpdateDto model)
         {
             var validator = new WriterPasswordUpdateValidator();
             var result = validator.Validate(model);
 
-            var currentWriter = _writerService.List(x => x.WriterEmail == User.Identity.Name).FirstOrDefault();
+            var user = await _userManager.GetUserAsync(User);
+            Writer currentWriter = null;
+            
+            if (user != null)
+            {
+                currentWriter = _writerService.GetByIdBL(user.Id);
+            }
+            else
+            {
+                currentWriter = _writerService.List(x => x.WriterEmail == User.Identity.Name).FirstOrDefault();
+            }
 
-            if (!string.IsNullOrEmpty(model.OldPassword) && model.OldPassword != currentWriter.WriterPassword)
+            if (currentWriter == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            if (user != null && !string.IsNullOrEmpty(model.OldPassword))
+            {
+                var passwordCheck = await _userManager.CheckPasswordAsync(user, model.OldPassword);
+                if (!passwordCheck)
+                {
+                    ModelState.AddModelError("OldPassword", "Eski şifre yanlış");
+                }
+            }
+            else if (user == null && !string.IsNullOrEmpty(model.OldPassword) && model.OldPassword != currentWriter.WriterPassword)
             {
                 ModelState.AddModelError("OldPassword", "Eski şifre yanlış");
             }
@@ -97,17 +139,32 @@ namespace BlogProject.PresentationLayer.Controllers
                 ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
             }
 
-            currentWriter.WriterName = model.WriterName;
-            currentWriter.WriterEmail = model.WriterEmail;
-            currentWriter.WriterAbout = model.WriterAbout;
-            currentWriter.WriterImage = model.WriterImage;
+            if (ModelState.IsValid)
+            {
+                currentWriter.WriterName = model.WriterName;
+                currentWriter.WriterEmail = model.WriterEmail;
+                currentWriter.WriterAbout = model.WriterAbout;
+                currentWriter.WriterImage = model.WriterImage;
 
-            if (!string.IsNullOrEmpty(model.NewPassword))
-                currentWriter.WriterPassword = model.NewPassword;
+                if (user != null && !string.IsNullOrEmpty(model.NewPassword))
+                {
+                    await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                }
+                else if (user == null && !string.IsNullOrEmpty(model.NewPassword))
+                {
+                    currentWriter.WriterPassword = model.NewPassword;
+                }
 
-            currentWriter.WriterStatus = true;
-
-            _writerService.UpdateBL(currentWriter);
+                currentWriter.WriterStatus = true;
+                _writerService.UpdateBL(currentWriter);
+                
+                if (user != null)
+                {
+                    user.Email = model.WriterEmail;
+                    user.UserName = model.WriterEmail;
+                    await _userManager.UpdateAsync(user);
+                }
+            }
 
             return View();
         }

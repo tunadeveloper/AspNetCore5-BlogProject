@@ -1,0 +1,77 @@
+@model BlogProject.EntityLayer.Concrete.Message2
+@{
+    ViewData["Title"] = "Yeni Mesaj";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni Mesaj Gönder</h3>
+                </div>
+                <div class="card-body">
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <form asp-area="Admin" asp-controller="Message" asp-action="CreateMessage" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label for="ReceiverId" class="form-label">Alıcı</label>
+                            <select name="ReceiverId" id="ReceiverId" class="form-control" required>
+                                <option value="">Alıcı Seçiniz</option>
+                                @if (ViewBag.Writers != null)
+                                {
+                                    foreach (var writer in ViewBag.Writers)
+                                    {
+                                        <option value="@writer.WriterId" @(Model?.ReceiverId == writer.WriterId ? "selected" : "")>
+                                            @writer.WriterName (ID: @writer.WriterId)
+                                        </option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">Writer bulunamadı</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Subject" class="form-label">Konu</label>
+                            <input type="text" name="Subject" id="Subject" class="form-control"
+                                   placeholder="Mesaj konusunu giriniz"
+                                   value="@Model.Subject" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Content" class="form-label">Mesaj İçeriği</label>
+                            <textarea name="Content" id="Content" class="form-control" rows="6" placeholder="Mesaj içeriğini giriniz" required>@Model.Content</textarea>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-paper-plane"></i> Gönder
+                            </button>
+                            <a asp-area="Admin" asp-controller="Message" asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Geri Dön
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
