@@ -12,6 +12,8 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
@@ -35,16 +37,33 @@ namespace BlogProject.PresentationLayer.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId, int page = 1)
         {
-            var values = _blogService.GetListWithCategoryBL();
-            return View(values);
+            var allBlogs = _blogService.GetListWithCategoryBL().Where(x => x.BlogStatus == true).ToList();
+            
+            if (categoryId.HasValue && categoryId.Value > 0)
+            {
+                allBlogs = allBlogs.Where(x => x.CategoryId == categoryId.Value).ToList();
+            }
+            
+            var pagedBlogs = allBlogs.ToPagedList(page, 9);
+            
+            ViewBag.Categories = _categoryService.GetAllBL().Where(x => x.CategoryStatus == true).ToList();
+            ViewBag.SelectedCategoryId = categoryId;
+            
+            return View(pagedBlogs);
         }
 
         public IActionResult BlogDetails(int id)
         {
             ViewBag.id = id;
             var values = _blogService.GetByIdWithCategoryBL(id);
+            
+            if (values == null)
+            {
+                return NotFound();
+            }
+            
             return View(values);
         }
 

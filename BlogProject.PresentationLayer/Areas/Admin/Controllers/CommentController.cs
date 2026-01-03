@@ -2,6 +2,8 @@
 using BlogProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace BlogProject.PresentationLayer.Areas.Admin.Controllers
 {
@@ -16,9 +18,9 @@ namespace BlogProject.PresentationLayer.Areas.Admin.Controllers
             _commentService = commentService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var values = _commentService.GetCommentWithBlog();
+            var values = _commentService.GetCommentWithBlog().ToPagedList(page, 10);
             return View(values);
         }
 

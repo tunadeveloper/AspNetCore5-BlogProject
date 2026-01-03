@@ -15,7 +15,11 @@ namespace BlogProject.PresentationLayer.Areas.Admin.ViewComponents.Statistic
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.LastBlog = _blogService.GetAllBL().OrderByDescending(x => x.BlogId).Take(1).Select(x => x.BlogTitle).FirstOrDefault();
+            var lastBlogs = _blogService.GetListWithCategoryBL()
+                .OrderByDescending(x => x.BlogId)
+                .Take(7)
+                .ToList();
+            ViewBag.LastBlogs = lastBlogs;
             return View();
         }
     }

@@ -1,40 +1,78 @@
-﻿<div class="row">
-    <div class="col-lg-6">
-        <div class="widget navy-bg no-padding">
-            <div class="p-m">
-                <h1 class="m-xs">ASP.NET Core 5.0</h1>
-                <h4>Bu panelde admin işlemleri bir area yapısı üzerinden gerçekleşmektedir.</h4>
-            </div>
-            <div class="flot-chart">
-                <div class="flot-chart-content" id="flot-chart1"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="widget lazur-bg no-padding">
-            <div class="p-m">
-                <h2 class="font-bold no-margins">
-                    Son Eklenen Blog
-                </h2>
-                <h4>@ViewBag.LastBlog</h4>
-            </div>
-            <div class="flot-chart">
-                <div class="flot-chart-content" id="flot-chart2"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="widget yellw-bg no-padding">
-            <div class="p-m">
-                <h1 class="m-xs">₺1500.00</h1>
+﻿@using BlogProject.EntityLayer.Concrete
+@{
+    var lastBlogs = ViewBag.LastBlogs as List<Blog>;
+}
 
-                <h3 class="font-bold no-margins">
-                    Blog Kazanç
-                </h3>
+<div class="col-lg-6 col-md-6 mb-4">
+    <div class="admin-card" style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
+        <h5 class="mb-3" style="color: var(--primary-color); font-weight: 700; font-size: 1rem;">
+            <i class="fas fa-newspaper me-2"></i>Son Eklenen 7 Blog
+        </h5>
+        
+        @if (lastBlogs != null && lastBlogs.Any())
+        {
+            <div class="row g-2">
+                @for (int i = 0; i < lastBlogs.Count; i += 2)
+                {
+                    <div class="col-12">
+                        @if (i < lastBlogs.Count)
+                        {
+                            var blog1 = lastBlogs[i];
+                            <div class="d-flex gap-2 p-2 mb-2" style="background: var(--light-color); border-radius: 8px; border: 1px solid var(--accent-color);">
+                                <div class="flex-shrink-0">
+                                    <img src="@blog1.BlogThumnailImage" alt="@blog1.BlogTitle" 
+                                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid var(--accent-color);"
+                                         onerror="this.src='https://via.placeholder.com/60?text=Blog'">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1" style="color: var(--primary-color); font-weight: 600; font-size: 0.8rem; margin: 0; line-height: 1.3;">
+                                        <a href="/Admin/Blog/BlogDetails/@blog1.BlogId" style="color: var(--primary-color); text-decoration: none;">
+                                            @(blog1.BlogTitle?.Length > 40 ? blog1.BlogTitle.Substring(0, 40) + "..." : blog1.BlogTitle)
+                                        </a>
+                                    </h6>
+                                    <p class="mb-0" style="color: var(--secondary-color); font-size: 0.7rem; margin: 0;">
+                                        <i class="fas fa-tag me-1"></i>@(blog1.Category?.CategoryName ?? "Kategori Yok")
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-12">
+                        @if (i + 1 < lastBlogs.Count)
+                        {
+                            var blog2 = lastBlogs[i + 1];
+                            <div class="d-flex gap-2 p-2 mb-2" style="background: var(--light-color); border-radius: 8px; border: 1px solid var(--accent-color);">
+                                <div class="flex-shrink-0">
+                                    <img src="@blog2.BlogThumnailImage" alt="@blog2.BlogTitle" 
+                                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid var(--accent-color);"
+                                         onerror="this.src='https://via.placeholder.com/60?text=Blog'">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1" style="color: var(--primary-color); font-weight: 600; font-size: 0.8rem; margin: 0; line-height: 1.3;">
+                                        <a href="/Admin/Blog/BlogDetails/@blog2.BlogId" style="color: var(--primary-color); text-decoration: none;">
+                                            @(blog2.BlogTitle?.Length > 40 ? blog2.BlogTitle.Substring(0, 40) + "..." : blog2.BlogTitle)
+                                        </a>
+                                    </h6>
+                                    <p class="mb-0" style="color: var(--secondary-color); font-size: 0.7rem; margin: 0;">
+                                        <i class="fas fa-tag me-1"></i>@(blog2.Category?.CategoryName ?? "Kategori Yok")
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
             </div>
-            <div class="flot-chart">
-                <div class="flot-chart-content" id="flot-chart3"></div>
-            </div>
-        </div>
+        }
+        else
+        {
+            <p style="color: var(--secondary-color); font-size: 0.875rem;">Henüz blog eklenmemiş.</p>
+        }
     </div>
 </div>
+
+<style>
+    .admin-card a:hover {
+        color: var(--secondary-color) !important;
+        text-decoration: underline !important;
+    }
+</style>

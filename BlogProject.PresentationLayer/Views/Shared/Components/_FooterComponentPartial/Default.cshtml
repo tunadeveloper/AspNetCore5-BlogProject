@@ -1,93 +1,35 @@
-﻿@using BlogProject.EntityLayer.Concrete
-@model List<Blog>
-
-<br />
-<br />
-<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-					<h3>About US</h3>
-					<p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. lacinia eget consectetur sed, convallis at tellus..</p>
-					<div class="read">
-						<a href="single.html" class="btn btn-primary read-m">Read More</a>
-					</div>
-				</div>
-				<div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-
-					<div class="tech-btm">
-						<h3>Latest Posts</h3>
-						@foreach(var item in Model){
-<div class="blog-grids row mb-3">
-							<div class="col-md-5 blog-grid-left">
-								<a href="/Blog/BlogDetails/@item.BlogId">
-									<img src="@item.BlogThumnailImage" class="card-img-top img-fluid" alt="">
-								</a>
-							</div>
-							<div class="col-md-7 blog-grid-right">
-
-								<h5>
-									<a href="/Blog/BlogDetails/@item.BlogId">@(item.BlogTitle.Length >= 30 ? item.BlogTitle.Substring(0, 30) + "..." : item.BlogTitle) </a>
-								</h5>
-								<div class="sub-meta">
-									<span>
-										<i class="far fa-clock"></i> @item.BlogCreateDate.ToString("HH:mm | dd MMMM")
-									</span>
-								</div>
-							</div>
-
-						</div>
-						}
-						
-					</div>
-				</div>
-				<!-- subscribe -->
-			@await Html.PartialAsync("/Views/Newsletter/FooterNewsletter.cshtml", new Newsletter())
+﻿<footer class="modern-footer" style="margin-top: auto;">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 mb-4">
+				<h5 class="mb-3">
+					<i class="fas fa-blog me-2"></i>Modern Blog
+				</h5>
+				<p style="color: rgba(255,255,255,0.8);">
+					En güncel teknoloji haberleri, yazılım geliştirme ipuçları ve daha fazlası için bizi takip edin.
+				</p>
 			</div>
-			<!-- footer -->
-			<div class="footer-cpy text-center">
-				<div class="footer-social">
-					<div class="copyrighttop">
-						<ul>
-							<li class="mx-3">
-								<a class="facebook" href="#">
-									<i class="fab fa-facebook-f"></i>
-									<span>Facebook</span>
-								</a>
-							</li>
-							<li>
-								<a class="facebook" href="#">
-									<i class="fab fa-twitter"></i>
-									<span>Twitter</span>
-								</a>
-							</li>
-							<li class="mx-3">
-								<a class="facebook" href="#">
-									<i class="fab fa-google-plus-g"></i>
-									<span>Google+</span>
-								</a>
-							</li>
-							<li>
-								<a class="facebook" href="#">
-									<i class="fab fa-pinterest-p"></i>
-									<span>Pinterest</span>
-								</a>
-							</li>
-						</ul>
-
-					</div>
-				</div>
-				<div class="w3layouts-agile-copyrightbottom">
-					<p>
-						© 2018 Weblog. All Rights Reserved | Design by
-						<a href="http://w3layouts.com/">W3layouts</a>
-					</p>
-
+			<div class="col-lg-4 mb-4">
+				<h5 class="mb-3">Hızlı Linkler</h5>
+				<ul class="list-unstyled">
+					<li><a href="/Blog/Index/"><i class="fas fa-chevron-right me-2"></i>Anasayfa</a></li>
+					<li><a href="/About/Index/"><i class="fas fa-chevron-right me-2"></i>Hakkımızda</a></li>
+					<li><a href="/Contact/Index/"><i class="fas fa-chevron-right me-2"></i>İletişim</a></li>
+				</ul>
+			</div>
+			<div class="col-lg-4 mb-4">
+				<h5 class="mb-3">Bizi Takip Edin</h5>
+				<div class="d-flex gap-3">
+					<a href="#" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+					<a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
+					<a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+					<a href="#" class="text-white"><i class="fab fa-linkedin-in fa-lg"></i></a>
 				</div>
 			</div>
-
-			<!-- //footer -->
-
-
 		</div>
-	</footer>
+		<hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+		<div class="text-center" style="color: rgba(255,255,255,0.7);">
+			<p>&copy; @DateTime.Now.Year Modern Blog. Tüm hakları saklıdır.</p>
+		</div>
+	</div>
+</footer>

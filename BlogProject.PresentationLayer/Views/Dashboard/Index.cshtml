@@ -1,54 +1,58 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
-<div class="main-panel">
+<div class="main-content">
     <div class="content-wrapper">
-        <div class="page-header">
-            <h3 class="page-title">
-                <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                    <i class="mdi mdi-home"></i>
-                </span> Dashboard
-            </h3>
-        </div>
-        <div class="row">
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                    <div class="card-body">
-                        <img src="/writer/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                        <h4 class="font-weight-normal mb-3">
-                            Tüm bloglar <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-                        </h4>
-                        <h2 class="mb-5">@ViewBag.allBlogCount</h2>
+        <h1 class="page-title">
+            <i class="fas fa-home me-2"></i>Dashboard
+        </h1>
+
+        <div class="row g-4 mb-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-blog"></i>
                     </div>
+                    <div class="stat-value">@ViewBag.allBlogCount</div>
+                    <div class="stat-label">Tüm Bloglar</div>
                 </div>
             </div>
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                    <div class="card-body">
-                        <img src="/writer/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                        <h4 class="font-weight-normal mb-3">
-                            Benim bloglarım <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
-                        </h4>
-                        <h2 class="mb-5">@ViewBag.myBlogCount</h2>
+            <div class="col-lg-4 col-md-6">
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-bookmark"></i>
                     </div>
+                    <div class="stat-value">@ViewBag.myBlogCount</div>
+                    <div class="stat-label">Benim Bloglarım</div>
                 </div>
             </div>
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                    <div class="card-body">
-                        <img src="/writer/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                        <h4 class="font-weight-normal mb-3">
-                            Bu hafta ki bloglar <i class="mdi mdi-diamond mdi-24px float-right"></i>
-                        </h4>
-                        <h2 class="mb-5">@ViewBag.blogCountLastSevenDays</h2>
+            <div class="col-lg-4 col-md-6">
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-week"></i>
                     </div>
+                    <div class="stat-value">@ViewBag.blogCountLastSevenDays</div>
+                    <div class="stat-label">Bu Hafta</div>
                 </div>
             </div>
         </div>
-        @await Component.InvokeAsync("_BlogListDashboardComponentPartial")
-        @await Component.InvokeAsync("_DashboardCategoryListComponentPartial")
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                @await Component.InvokeAsync("_BlogListDashboardComponentPartial")
+            </div>
+            <div class="col-lg-4">
+                @await Component.InvokeAsync("_DashboardCategoryListComponentPartial")
+            </div>
+        </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('show');
+    });
+</script>

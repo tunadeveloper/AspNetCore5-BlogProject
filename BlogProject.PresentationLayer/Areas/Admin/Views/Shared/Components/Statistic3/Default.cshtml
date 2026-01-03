@@ -1,106 +1,80 @@
-﻿<div class="row">
-    <div class="col-lg-4">
-        <div class="widget-head-color-box navy-bg p-lg text-center">
-            <div class="m-b-md">
-                <h2 class="font-bold no-margins">
-                    Alex Smith
-                </h2>
-                <small>Founder of Groupeq</small>
-            </div>
-            <img src="/inspinia-gh-pages/img/a4.jpg" class="rounded-circle circle-border m-b-md" alt="profile">
-            <div>
-                <span>100 Tweets</span> |
-                <span>350 Following</span> |
-                <span>610 Followers</span>
-            </div>
-        </div>
-        <div class="widget-text-box">
-            <h4 class="media-heading">Alex Smith</h4>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            <div class="text-right">
-                <a href="" class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                <a href="" class="btn btn-xs btn-primary"><i class="fa fa-heart"></i> Love</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="widget navy-bg p-lg text-center">
-            <div class="m-b-md">
-                <i class="fa fa-shield fa-4x"></i>
-                <h1 class="m-xs">456</h1>
-                <h3 class="font-bold no-margins">
-                    Shield
-                </h3>
-                <small>power</small>
-            </div>
-        </div>
-        <div class="widget  p-lg text-center">
-            <div class="m-b-md">
-                <i class="fa fa-flash fa-4x"></i>
-                <h1 class="m-xs">612</h1>
-                <h3 class="font-bold no-margins">
-                    Thunder
-                </h3>
-                <small>amount</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="widget lazur-bg p-xl">
+﻿@using BlogProject.EntityLayer.Concrete
+@{
+    var lastMessages = ViewBag.LastMessages as List<Contact>;
+}
 
-            <h2>
-                Janet Smith
-            </h2>
-            <ul class="list-unstyled m-t-md">
-                <li>
-                    <span class="fa fa-envelope m-r-xs"></span>
-                    <label>Email:</label>
-                    mike@mail.com
-                </li>
-                <li>
-                    <span class="fa fa-home m-r-xs"></span>
-                    <label>Address:</label>
-                    Street 200, Avenue 10
-                </li>
-                <li>
-                    <span class="fa fa-phone m-r-xs"></span>
-                    <label>Contact:</label>
-                    (+121) 678 3462
-                </li>
-            </ul>
+<div class="col-lg-6 col-md-6 mb-4">
+    <div class="admin-card" style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
+        <h5 class="mb-3" style="color: var(--primary-color); font-weight: 700; font-size: 1rem;">
+            <i class="fas fa-chart-bar me-2"></i>Detaylı İstatistikler
+        </h5>
+        
+        <div class="row g-2 mb-4">
+            <div class="col-6">
+                <div class="text-center p-2" style="background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #10b981;">@ViewBag.ActiveBlogCount</div>
+                    <div style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 500;">Aktif Blog</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center p-2" style="background: rgba(99, 102, 241, 0.1); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary-color);">@ViewBag.WriterCount</div>
+                    <div style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 500;">Aktif Yazar</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center p-2" style="background: rgba(245, 158, 11, 0.1); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #f59e0b;">@ViewBag.CategoryCount</div>
+                    <div style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 500;">Aktif Kategori</div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-center p-2" style="background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #8b5cf6;">@ViewBag.NewsletterCount</div>
+                    <div style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 500;">Bülten Abonesi</div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="text-center p-2" style="background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                    <div style="font-size: 1.5rem; font-weight: 800; color: #ef4444;">@ViewBag.LastWeekBlogCount</div>
+                    <div style="font-size: 0.75rem; color: var(--secondary-color); font-weight: 500;">Son 7 Günde Eklenen Blog</div>
+                </div>
+            </div>
+        </div>
 
-        </div>
-        <div class="widget red-bg p-lg text-center">
-            <div class="m-b-md">
-                <i class="fa fa-bell fa-4x"></i>
-                <h1 class="m-xs">47</h1>
-                <h3 class="font-bold no-margins">
-                    Notification
-                </h3>
-                <small>We detect the error.</small>
+        <hr style="border-color: var(--accent-color); margin: 1rem 0;">
+
+        <h6 class="mb-2" style="color: var(--primary-color); font-weight: 600; font-size: 0.875rem;">
+            <i class="fas fa-envelope me-2"></i>Son Gelen 5 Mesaj
+        </h6>
+        
+        @if (lastMessages != null && lastMessages.Any())
+        {
+            <div class="d-flex flex-column gap-2">
+                @foreach (var message in lastMessages)
+                {
+                    <div class="p-2" style="background: var(--light-color); border-radius: 6px; border: 1px solid var(--accent-color);">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <h6 class="mb-0" style="color: var(--primary-color); font-weight: 600; font-size: 0.75rem;">
+                                @(message.ContactUsername ?? "İsimsiz")
+                            </h6>
+                            <span style="color: var(--secondary-color); font-size: 0.65rem;">
+                                @message.ContactDate.ToString("dd MMM yyyy")
+                            </span>
+                        </div>
+                        <p class="mb-1" style="color: var(--primary-color); font-weight: 500; font-size: 0.7rem; margin: 0;">
+                            <i class="fas fa-tag me-1"></i>@(message.ContactSubject ?? "Konu Yok")
+                        </p>
+                        <p class="mb-0" style="color: var(--secondary-color); font-size: 0.65rem; margin: 0; line-height: 1.3;">
+                            @(message.ContactMessage?.Length > 50 ? message.ContactMessage.Substring(0, 50) + "..." : message.ContactMessage ?? "Mesaj içeriği yok")
+                        </p>
+                    </div>
+                }
             </div>
-        </div>
-    </div>
-    <div class="col-lg-2">
-        <div class="widget yellow-bg p-lg text-center">
-            <div class="m-b-md">
-                <i class="fa fa-thumbs-up fa-4x"></i>
-                <h1 class="m-xs">520</h1>
-                <h3 class="font-bold no-margins">
-                    Likes
-                </h3>
-                <small>amount</small>
-            </div>
-        </div>
-        <div class="widget yellow-bg p-lg text-center">
-            <div class="m-b-md">
-                <i class="fa fa-warning fa-4x"></i>
-                <h1 class="m-xs">Alarm</h1>
-                <h3 class="font-bold no-margins">
-                    Do
-                </h3>
-                <small>something</small>
-            </div>
-        </div>
+        }
+        else
+        {
+            <p style="color: var(--secondary-color); font-size: 0.75rem;">Henüz mesaj bulunmamaktadır.</p>
+        }
     </div>
 </div>

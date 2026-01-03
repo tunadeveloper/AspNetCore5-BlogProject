@@ -4,59 +4,60 @@
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
-<div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Profil Güncelleme</h4>
-            <p class="card-description">Bilgilerinizi güncelleyebilirsiniz</p>
+<div class="main-content">
+    <div class="content-wrapper">
+        <h1 class="page-title">
+            <i class="fas fa-user-circle me-2"></i>Profil Güncelleme
+        </h1>
 
+        <div class="admin-card">
             @using (Html.BeginForm("WriterProfile", "Writer", FormMethod.Post, new { @class = "forms-sample" }))
             {
                 @Html.HiddenFor(m => m.WriterId)
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.WriterName)
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.WriterName, new { @class = "form-label fw-bold" })
                     @Html.TextBoxFor(m => m.WriterName, new { @class = "form-control", placeholder = "Ad Soyad" })
                     @Html.ValidationMessageFor(m => m.WriterName, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.WriterEmail)
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.WriterEmail, new { @class = "form-label fw-bold" })
                     @Html.TextBoxFor(m => m.WriterEmail, new { @class = "form-control", placeholder = "E-posta" })
                     @Html.ValidationMessageFor(m => m.WriterEmail, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.OldPassword, "Eski Şifre (isteğe bağlı)")
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.OldPassword, "Eski Şifre (isteğe bağlı)", new { @class = "form-label fw-bold" })
                     @Html.PasswordFor(m => m.OldPassword, new { @class = "form-control", placeholder = "Eski şifrenizi giriniz" })
                     @Html.ValidationMessageFor(m => m.OldPassword, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.NewPassword, "Yeni Şifre")
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.NewPassword, "Yeni Şifre", new { @class = "form-label fw-bold" })
                     @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", placeholder = "Yeni şifre" })
                     @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ConfirmPassword, "Yeni Şifre Tekrar")
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.ConfirmPassword, "Yeni Şifre Tekrar", new { @class = "form-label fw-bold" })
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Yeni şifreyi tekrar giriniz" })
                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
                  
-                <div class="form-group">
-                    @Html.LabelFor(m => m.WriterAbout, "Hakkında")
-                    @Html.TextAreaFor(m => m.WriterAbout, 4, 50, new { @class = "form-control", placeholder = "Hakkınızda kısa bir bilgi" })
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.WriterAbout, "Hakkında", new { @class = "form-label fw-bold" })
+                    @Html.TextAreaFor(m => m.WriterAbout, new { @class = "form-control", rows = 4, placeholder = "Hakkınızda kısa bir bilgi" })
                     @Html.ValidationMessageFor(m => m.WriterAbout, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.WriterImage, "Görsel URL")
+                <div class="mb-3">
+                    @Html.LabelFor(m => m.WriterImage, "Görsel URL", new { @class = "form-label fw-bold" })
                     @Html.TextBoxFor(m => m.WriterImage, new { @class = "form-control", placeholder = "Görsel URL" })
                     @Html.ValidationMessageFor(m => m.WriterImage, "", new { @class = "text-danger" })
                 </div>
 
-                <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
+                <button type="submit" class="btn btn-modern" style="background: linear-gradient(90deg, #6366f1, #8b5cf6); color: white;">Güncelle</button>
             }
         </div>
     </div>

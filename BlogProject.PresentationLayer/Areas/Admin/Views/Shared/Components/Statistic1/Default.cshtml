@@ -1,54 +1,36 @@
-﻿<div class="row">
-    <div class="col-lg-3">
-        <div class="widget style1">
-            <div class="row">
-                <div class="col-4 text-center">
-                    <i class="fa fa-trophy fa-5x"></i>
-                </div>
-                <div class="col-8 text-right">
-                    <span> Toplam Blog Sayısı </span>
-                    <h2 class="font-bold">@ViewBag.BlogCount</h2>
-                </div>
-            </div>
+﻿<div class="col-lg-3 col-md-6 mb-4">
+    <div class="admin-stat-card primary">
+        <div class="stat-icon">
+            <i class="fas fa-blog"></i>
         </div>
+        <div class="stat-value">@ViewBag.BlogCount</div>
+        <div class="stat-label">Toplam Blog Sayısı</div>
     </div>
-    <div class="col-lg-3">
-        <div class="widget style1 navy-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i class="fa fa-cloud fa-5x"></i>
-                </div>
-                <div class="col-8 text-right">
-                    <span> Today degrees </span>
-                    <h2 class="font-bold">@ViewBag.Weather 'C</h2>
-                </div>
-            </div>
+</div>
+<div class="col-lg-3 col-md-6 mb-4">
+    <div class="admin-stat-card success">
+        <div class="stat-icon">
+            <i class="fas fa-cloud-sun"></i>
         </div>
+        <div class="stat-value">@ViewBag.Weather °C</div>
+        <div class="stat-label">Hava Durumu</div>
     </div>
-    <div class="col-lg-3">
-        <div class="widget style1 lazur-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i class="fa fa-envelope-o fa-5x"></i>
-                </div>
-                <div class="col-8 text-right">
-                    <span> Toplam Mesaj </span>
-                    <h2 class="font-bold">@ViewBag.ContactCount</h2>
-                </div>
-            </div>
+</div>
+<div class="col-lg-3 col-md-6 mb-4">
+    <div class="admin-stat-card warning">
+        <div class="stat-icon">
+            <i class="fas fa-envelope"></i>
         </div>
+        <div class="stat-value">@ViewBag.ContactCount</div>
+        <div class="stat-label">Toplam Mesaj</div>
     </div>
-    <div class="col-lg-3">
-        <div class="widget style1 yellow-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i class="fa fa-comment fa-5x"></i>
-                </div>
-                <div class="col-8 text-right">
-                    <span> Toplam Yorum </span>
-                    <h2 class="font-bold">@ViewBag.CommentCount</h2>
-                </div>
-            </div>
+</div>
+<div class="col-lg-3 col-md-6 mb-4">
+    <div class="admin-stat-card danger">
+        <div class="stat-icon">
+            <i class="fas fa-comments"></i>
         </div>
+        <div class="stat-value">@ViewBag.CommentCount</div>
+        <div class="stat-label">Toplam Yorum</div>
     </div>
 </div>

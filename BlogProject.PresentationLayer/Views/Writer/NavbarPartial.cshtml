@@ -1,60 +1,45 @@
-﻿<nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
-        <li class="nav-item nav-profile">
-            <a href="#" class="nav-link">
-                <div class="nav-profile-image">
-                    <img src="/writer/assets/images/faces/face1.jpg" alt="profile">
-                    <span class="login-status online"></span>
-                    <!--change to offline or busy as needed-->
-                </div>
-                <div class="nav-profile-text d-flex flex-column">
-                    <span class="font-weight-bold mb-2">Yazar Adı Soyadı</span>
-                    <span class="text-secondary text-small">Pozisyon Adı</span>
-                </div>
-                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Dashboard/Index/">
-                <span class="menu-title">Dashboard</span>
-                <i class="mdi mdi-view-dashboard menu-icon"></i>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/Writer/WriterProfile/">
-                <span class="menu-title">Profilim</span>
-                <i class="mdi mdi-account-circle menu-icon"></i>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/Blog/BlogListByWriter/">
-                <span class="menu-title">Bloglarım</span>
-                <i class="mdi mdi-note-text menu-icon"></i>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/Message/InBox/">
-                <span class="menu-title">Mesajlar</span>
-                <i class="mdi mdi-email menu-icon"></i>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/Blog/Index/">
-                <span class="menu-title">Siteye Git</span>
-                <i class="mdi mdi-earth menu-icon"></i>
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/Login/WriterLogOut/">
-                <span class="menu-title">Çıkış Yap</span>
-                <i class="mdi mdi-logout menu-icon"></i>
-            </a>
-        </li>
-
-    </ul>
-</nav>
+﻿<aside class="modern-sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h4><i class="fas fa-blog me-2"></i>Writer Panel</h4>
+    </div>
+    <nav class="mt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")" href="/Dashboard/Index/">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Writer" ? "active" : "")" href="/Writer/WriterProfile/">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profilim</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Blog" ? "active" : "")" href="/Blog/BlogListByWriter/">
+                    <i class="fas fa-blog"></i>
+                    <span>Bloglarım</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Message" ? "active" : "")" href="/Message/InBox/">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mesajlar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Blog/Index/" target="_blank">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Siteye Git</span>
+                </a>
+            </li>
+            <li class="nav-item mt-3">
+                <a class="nav-link text-danger" href="/Login/WriterLogOut/">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Çıkış Yap</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

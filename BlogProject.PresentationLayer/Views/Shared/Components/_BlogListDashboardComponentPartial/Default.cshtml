@@ -1,35 +1,47 @@
 ﻿@using BlogProject.EntityLayer.Concrete
 @model List<Blog>
-<div class="row">
-    <div class="col-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Son 5 Blog</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th> # </th>
-                                <th> Başlık </th>
-                                <th> Kategori </th>
-                                <th> Tarih </th>
-                                <th>İşlem</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          @foreach(var item in Model){
-                              <tr>
-                                  <td><img src="@item.BlogThumnailImage" alt="@item.BlogTitle" class="mr-2"/></td>
-                                  <td>@(item.BlogTitle.Length >= 50 ? item.BlogTitle.Substring(0,50) + "..." : item.BlogTitle)</td>
-                                  <td><label class="badge badge-gradient-dark">@item.Category.CategoryName</label></td>
-                                  <td>@item.BlogCreateDate.ToShortDateString()</td>
-                                    <td><a href="/Blog/BlogDetails/@item.BlogId" class="btn btn-inverse-primary">Bloğa Git</a></td>
-                              </tr>
-                          }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+
+<div class="admin-card">
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h5 class="mb-0">
+			<i class="fas fa-newspaper me-2"></i>Son 5 Blog
+		</h5>
+	</div>
+	<div class="table-responsive">
+		<table class="admin-table table table-hover">
+			<thead>
+				<tr>
+					<th>Görsel</th>
+					<th>Başlık</th>
+					<th>Kategori</th>
+					<th>Tarih</th>
+					<th>İşlem</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach(var item in Model)
+				{
+					<tr>
+						<td>
+							<img src="@item.BlogThumnailImage" alt="@item.BlogTitle" 
+								 style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid var(--accent-color);"
+								 onerror="this.src='https://via.placeholder.com/60?text=Blog'"/>
+						</td>
+						<td>@(item.BlogTitle?.Length >= 50 ? item.BlogTitle.Substring(0, 50) + "..." : item.BlogTitle)</td>
+						<td>
+							<span class="badge" style="background: linear-gradient(90deg, #6366f1, #8b5cf6); color: white;">
+								@item.Category?.CategoryName
+							</span>
+						</td>
+						<td>@item.BlogCreateDate.ToShortDateString()</td>
+						<td>
+							<a href="/Blog/BlogDetails/@item.BlogId" class="btn btn-sm btn-primary">
+								<i class="fas fa-eye me-1"></i>Bloğa Git
+							</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 </div>

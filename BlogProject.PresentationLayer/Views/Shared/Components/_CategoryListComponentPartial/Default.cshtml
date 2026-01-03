@@ -1,16 +1,35 @@
 ﻿@using BlogProject.EntityLayer.Concrete
 @model List<Category>
-<div class="tech-btm">
-    <h4>Kategoriler</h4>
-    <ul class="list-group single">
-        @foreach (var item in Model)
-        {
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                @item.CategoryName
-                <span class="badge badge-primary badge-pill">@ViewBag.categoryBlogCounts[item.CategoryId]</span>
-            </li>
-        }
 
-
-    </ul>
+<div class="card mb-4" style="background: white; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07); padding: 1.5rem;">
+	<h5 class="mb-3" style="color: var(--primary-color); font-weight: 700;">
+		<i class="fas fa-tags me-2"></i>Kategoriler
+	</h5>
+	<ul class="list-unstyled mb-0">
+		@foreach (var item in Model.Where(x => x.CategoryStatus == true))
+		{
+			<li class="mb-2">
+				<a href="/Blog/Index/?categoryId=@item.CategoryId" 
+				   class="d-flex justify-content-between align-items-center p-2 rounded"
+				   style="color: var(--primary-color); text-decoration: none; background: var(--light-accent); transition: all 0.3s ease;">
+					<span style="font-weight: 500;">@item.CategoryName</span>
+					<span class="badge" style="background: var(--primary-color); color: white;">
+						@(ViewBag.categoryBlogCounts != null && ViewBag.categoryBlogCounts[item.CategoryId] != null ? ViewBag.categoryBlogCounts[item.CategoryId] : 0)
+					</span>
+				</a>
+			</li>
+		}
+	</ul>
 </div>
+
+<style>
+	.blog-sidebar a {
+		text-decoration: none !important;
+	}
+	
+	.blog-sidebar a:hover {
+		background: var(--accent-color) !important;
+		text-decoration: none !important;
+		transform: translateX(5px);
+	}
+</style>

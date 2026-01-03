@@ -1,110 +1,99 @@
 ﻿@using BlogProject.EntityLayer.Concrete
 @model Contact
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "İletişim";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<div class="banner-inner">
-</div>
-<ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="index.html">Home</a>
-	</li>
-	<li class="breadcrumb-item active">Contact</li>
-</ol>
-<!--//banner-->
-<!--/main-->
-<section class="main-content-w3layouts-agileits">
 
-	<h3 class="tittle">Contact Us</h3>
-	<p class="sub text-center">We love to discuss your idea</p>
-	<div class="contact-map inner-sec">
+<div class="container my-5" style="flex: 1;">
+	<nav aria-label="breadcrumb" class="modern-breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/Blog/Index/">Anasayfa</a></li>
+			<li class="breadcrumb-item active">İletişim</li>
+		</ol>
+	</nav>
 
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100949.24429313939!2d-122.44206553967531!3d37.75102885910819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan+Francisco%2C+CA%2C+USA!5e0!3m2!1sen!2sin!4v1472190196783"
-				class="map" style="border:0" allowfullscreen=""></iframe>
+	<div class="row mb-5">
+		<div class="col-12 text-center mb-5">
+			<h1 class="section-title">İletişim</h1>
+			<p class="lead" style="color: var(--secondary-color);">Bizimle iletişime geçin, sorularınızı yanıtlayalım</p>
+		</div>
 	</div>
-	<div class="ad-inf-sec bg-light">
-		<div class="container">
-			<div class="address row">
 
-				<div class="col-lg-4 address-grid">
-					<div class="row address-info">
-						<div class="col-md-4 address-left text-center">
-							<i class="far fa-map"></i>
-						</div>
-						<div class="col-md-8 address-right text-left">
-							<h6>Address</h6>
-							<p>
-								California, USA
-
-							</p>
-						</div>
-					</div>
-
+	<div class="row mb-5">
+		<div class="col-lg-4 mb-4">
+			<div class="card text-center h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 2rem; border: 2px solid var(--accent-color);">
+				<div class="mb-3">
+					<i class="fas fa-map-marker-alt" style="font-size: 3rem; color: var(--primary-color);"></i>
 				</div>
-				<div class="col-lg-4 address-grid">
-					<div class="row address-info">
-						<div class="col-md-4 address-left text-center">
-							<i class="far fa-envelope"></i>
-						</div>
-						<div class="col-md-8 address-right text-left">
-							<h6>Email</h6>
-							<p>
-								Email :
-								<a href="mailto:example@email.com"> mail@example.com</a>
+				<h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1rem;">Adres</h5>
+				<p style="color: var(--secondary-color); margin: 0;">İstanbul, Türkiye</p>
+			</div>
+		</div>
 
-							</p>
-						</div>
-
-					</div>
+		<div class="col-lg-4 mb-4">
+			<div class="card text-center h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 2rem; border: 2px solid var(--accent-color);">
+				<div class="mb-3">
+					<i class="fas fa-envelope" style="font-size: 3rem; color: var(--primary-color);"></i>
 				</div>
-				<div class="col-lg-4 address-grid">
-					<div class="row address-info">
-						<div class="col-md-4 address-left text-center">
-							<i class="fas fa-mobile-alt"></i>
-						</div>
-						<div class="col-md-8 address-right text-left">
-							<h6>Phone</h6>
-							<p>+1 234 567 8901</p>
+				<h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1rem;">E-Posta</h5>
+				<p style="color: var(--secondary-color); margin: 0;">
+					<a href="mailto:info@blog.com" style="color: var(--primary-color); text-decoration: none;">info@blog.com</a>
+				</p>
+			</div>
+		</div>
 
-						</div>
-
-					</div>
+		<div class="col-lg-4 mb-4">
+			<div class="card text-center h-100" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 2rem; border: 2px solid var(--accent-color);">
+				<div class="mb-3">
+					<i class="fas fa-phone" style="font-size: 3rem; color: var(--primary-color);"></i>
 				</div>
+				<h5 style="color: var(--primary-color); font-weight: 600; margin-bottom: 1rem;">Telefon</h5>
+				<p style="color: var(--secondary-color); margin: 0;">+90 (555) 123 45 67</p>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="contact_grid_right">
-				@using (Html.BeginForm("Index", "Contact", FormMethod.Post)){
-				<div class="row contact_left_grid">
-					<div class="col-md-6 con-left">
-						<div class="form-group">
-							<label for="validationCustom01 my-2">İsim Soyisim</label>
-							@Html.TextBoxFor(x=>x.ContactUsername, new {@class="form-control"})
-							
-						</div>
-						<div class="form-group">
-							<label for="exampleFormControlInput1">E-Posta</label>
-							@Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control" })
-						</div>
-						<div class="form-group">
-							<label for="validationCustom03 my-2">Konu</label>
-							@Html.TextBoxFor(x => x.ContactSubject, new { @class = "form-control" })
-						</div>
-					</div>
-					<div class="col-md-6 con-right">
-						<div class="form-group">
-							<label for="textarea">Message</label>
-							@Html.TextAreaFor(x => x.ContactMessage, new { @class = "form-control" })
-						</div>
-						<input class="form-control" type="submit" value="Submit">
 
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			<div class="card" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 3rem;">
+				<h3 class="mb-4 text-center" style="color: var(--primary-color); font-weight: 700;">
+					<i class="fas fa-paper-plane me-2"></i>Mesaj Gönder
+				</h3>
+
+				@using (Html.BeginForm("Index", "Contact", FormMethod.Post))
+				{
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							@Html.LabelFor(x => x.ContactUsername, "İsim Soyisim", new { @class = "form-label fw-bold", style = "color: var(--primary-color);" })
+							@Html.TextBoxFor(x => x.ContactUsername, new { @class = "form-control", placeholder = "Adınız ve Soyadınız", style = "border: 2px solid var(--accent-color); border-radius: 10px; padding: 0.75rem;" })
+							@Html.ValidationMessageFor(x => x.ContactUsername, "", new { @class = "text-danger" })
+						</div>
+
+						<div class="col-md-6 mb-3">
+							@Html.LabelFor(x => x.ContactEmail, "E-Posta", new { @class = "form-label fw-bold", style = "color: var(--primary-color);" })
+							@Html.TextBoxFor(x => x.ContactEmail, new { @class = "form-control", type = "email", placeholder = "ornek@email.com", style = "border: 2px solid var(--accent-color); border-radius: 10px; padding: 0.75rem;" })
+							@Html.ValidationMessageFor(x => x.ContactEmail, "", new { @class = "text-danger" })
+						</div>
 					</div>
-				</div>
-			}
+
+					<div class="mb-3">
+						@Html.LabelFor(x => x.ContactSubject, "Konu", new { @class = "form-label fw-bold", style = "color: var(--primary-color);" })
+						@Html.TextBoxFor(x => x.ContactSubject, new { @class = "form-control", placeholder = "Mesaj konusu", style = "border: 2px solid var(--accent-color); border-radius: 10px; padding: 0.75rem;" })
+						@Html.ValidationMessageFor(x => x.ContactSubject, "", new { @class = "text-danger" })
+					</div>
+
+					<div class="mb-4">
+						@Html.LabelFor(x => x.ContactMessage, "Mesaj", new { @class = "form-label fw-bold", style = "color: var(--primary-color);" })
+						@Html.TextAreaFor(x => x.ContactMessage, new { @class = "form-control", rows = 5, placeholder = "Mesajınızı buraya yazın...", style = "border: 2px solid var(--accent-color); border-radius: 10px; padding: 0.75rem;" })
+						@Html.ValidationMessageFor(x => x.ContactMessage, "", new { @class = "text-danger" })
+					</div>
+
+					<button type="submit" class="btn w-100" style="background: var(--gradient-1); color: white; border: none; padding: 0.75rem; border-radius: 10px; font-weight: 600; font-size: 1.1rem;">
+						<i class="fas fa-paper-plane me-2"></i>Mesajı Gönder
+					</button>
+				}
+			</div>
 		</div>
 	</div>
-</section>
-
-<link href="/web/css/contact.css" rel='stylesheet' type='text/css' />
+</div>

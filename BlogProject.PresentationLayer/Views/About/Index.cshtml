@@ -1,53 +1,61 @@
 ﻿@using BlogProject.EntityLayer.Concrete
 @model About
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hakkımızda";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<div class="banner-inner">
-</div>
-<ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="index.html">Anasayfa</a>
-	</li>
-	<li class="breadcrumb-item active">Bloglar</li>
-</ol>
-<section class="main-content-w3layouts-agileits">
-	<div class="container">
-		<h3 class="tittle">About</h3>
-		<div class="row inner-sec">
-			<!--left-->
-			<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-				<div class="blog-grid-top">
 
-					<div class="blog_info_left_grid">
-						<a href="single.html">
-							<img src="@Model.AboutImage2" class="img-fluid" alt="">
-						</a>
+<div class="container my-5" style="flex: 1;">
+	<nav aria-label="breadcrumb" class="modern-breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/Blog/Index/">Anasayfa</a></li>
+			<li class="breadcrumb-item active">Hakkımızda</li>
+		</ol>
+	</nav>
+
+	<div class="row">
+		<div class="col-lg-8 mb-5">
+			<div class="card" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 2.5rem; margin-bottom: 2rem;">
+				<h1 class="mb-4" style="color: var(--primary-color); font-weight: 700; font-size: 2.5rem;">
+					<i class="fas fa-info-circle me-2"></i>Hakkımızda
+				</h1>
+				
+				@if (!string.IsNullOrEmpty(Model?.AboutImage2))
+				{
+					<div class="mb-4">
+						<img src="@Model.AboutImage2" class="img-fluid rounded" alt="Hakkımızda" 
+							 style="width: 100%; max-height: 400px; object-fit: cover; border: 3px solid var(--accent-color);"
+							 onerror="this.src='https://via.placeholder.com/800x400?text=About+Image'">
 					</div>
-					<h3>
-						Amet consectetur adipisicing
-					</h3>
-					<p>
-						@Model.AboutDetail1
-						@Model.AboutDetail2
-					</p>
+				}
+
+				<div style="font-size: 1.125rem; line-height: 1.8; color: var(--secondary-color);">
+					@if (!string.IsNullOrEmpty(Model?.AboutDetail1))
+					{
+						<p class="mb-4">@Html.Raw(Model.AboutDetail1.Replace("\n", "<br/>"))</p>
+					}
+					
+					@if (!string.IsNullOrEmpty(Model?.AboutDetail2))
+					{
+						<p>@Html.Raw(Model.AboutDetail2.Replace("\n", "<br/>"))</p>
+					}
 				</div>
 			</div>
-			<!--//left-->
-			<!--right-->
-			<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
-				<div class="right-blog-info text-left">
-					<div class="tech-btm">
-						<img src="@Model.AboutImage1" class="img-fluid" alt="">
-					</div>
-					@await Html.PartialAsync("/Views/Newsletter/Subscribe.cshtml", new Newsletter())
-					@await Html.PartialAsync("/Views/About/SocialMediaPartial.cshtml")
-				</div>
-			</aside>
-			<!--//right-->
+		</div>
+
+		<div class="col-lg-4">
+			<div class="card" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 2rem; margin-bottom: 2rem;">
+				@if (!string.IsNullOrEmpty(Model?.AboutImage1))
+				{
+					<img src="@Model.AboutImage1" class="img-fluid rounded mb-3" alt="Hakkımızda" 
+						 style="width: 100%; border: 3px solid var(--accent-color);"
+						 onerror="this.src='https://via.placeholder.com/400x300?text=About+Image'">
+				}
+				
+				@await Html.PartialAsync("/Views/Newsletter/Subscribe.cshtml", new Newsletter())
+			</div>
+			
+			@await Html.PartialAsync("/Views/About/SocialMediaPartial.cshtml")
 		</div>
 	</div>
-</section>
-
-
+</div>

@@ -1,90 +1,42 @@
-﻿<header>
-	<div class="top-bar_sub_w3layouts container-fluid">
-		<div class="row">
-			<div class="col-md-4 logo text-left">
-				<a class="navbar-brand" href="/Writer/Index/">
-					<i class="fab fa-linode"></i> Core 5.0 Proje Kampı
-				</a>
-			</div>
-			<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-				<span>Welcome Back!</span>
-				<span class="mx-lg-4 mx-md-2  mx-1">
-					<a href="/Login/Index/">
-						<i class="fas fa-lock"></i> Giriş Yap
-					</a>
-				</span>
-				<span>
-					<a href="/Register/Index/">
-						<i class="far fa-user"></i> Kayıt Ol
-					</a>
-				</span>
-			</div>
-			<div class="col-md-4 log-icons text-right">
-
-				<ul class="social_list1 mt-3">
-
-					<li>
-						<a href="#" class="facebook1 mx-2">
-							<i class="fab fa-facebook-f"></i>
-
-						</a>
-					</li>
-					<li>
-						<a href="#" class="twitter2">
-							<i class="fab fa-twitter"></i>
-
-						</a>
-					</li>
-					<li>
-						<a href="#" class="dribble3 mx-2">
-							<i class="fab fa-dribbble"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="pin">
-							<i class="fab fa-pinterest-p"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="header_top" id="home">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-					aria-expanded="false" aria-label="Toggle navigation">
+﻿<header class="modern-header">
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<a class="navbar-brand" href="/Blog/Index/">
+				<i class="fas fa-blog me-2"></i>Modern Blog
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+					aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav me-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="/Blog/Index/">
-							Anasayfa
-							<span class="sr-only">(current)</span>
-						</a>
+						<a class="nav-link" href="/Blog/Index/">Anasayfa</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/About/Index/">Hakkımızda</a>
 					</li>
-						<li class="nav-item">
+					<li class="nav-item">
 						<a class="nav-link" href="/Contact/Index/">İletişim</a>
 					</li>
-
 				</ul>
-				<form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search here..." name="Search" required="">
-					<button class="btn btn1 my-2 my-sm-0" type="submit">
-						<i class="fas fa-search"></i>
-					</button>
-				</form>
-
-
-
+				<div class="d-flex align-items-center gap-3">
+					@if (User.Identity.IsAuthenticated)
+					{
+						<span class="text-white me-2">Hoş geldiniz, @User.Identity.Name</span>
+						<a href="/Login/LogOut" class="btn btn-login">Çıkış</a>
+					}
+					else
+					{
+						<a href="/Login/Index/" class="btn btn-login">
+							<i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+						</a>
+						<a href="/Register/Index/" class="btn btn-outline-light">
+							<i class="fas fa-user-plus me-2"></i>Kayıt Ol
+						</a>
+					}
+				</div>
 			</div>
-		</nav>
-
-	</div>
+		</div>
+	</nav>
 </header>

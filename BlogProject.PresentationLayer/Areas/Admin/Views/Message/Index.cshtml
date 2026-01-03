@@ -10,83 +10,76 @@
     var currentUserId = currentUser?.Id ?? 1;
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Mesaj Yönetimi</h3>
-                    <div class="card-tools">
-                        <a href="/Admin/Message/CreateMessage" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i> Yeni Mesaj
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tür</th>
-                                <th>Gönderen</th>
-                                <th>Alıcı</th>
-                                <th>Konu</th>
-                                <th>İçerik</th>
-                                <th>Tarih</th>
-                                <th>Durum</th>
-                                <th>İşlemler</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
+<div class="admin-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="mb-0">Mesaj Yönetimi</h5>
+        <a href="/Admin/Message/CreateMessage" class="btn btn-modern" style="background: linear-gradient(90deg, #6366f1, #8b5cf6); color: white;">
+            <i class="fas fa-plus me-2"></i>Yeni Mesaj
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="admin-table table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tür</th>
+                    <th>Gönderen</th>
+                    <th>Alıcı</th>
+                    <th>Konu</th>
+                    <th>İçerik</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MessageId</td>
+                        <td>
+                            @if (item.SenderId == currentUserId)
                             {
-                                <tr>
-                                    <td>@item.MessageId</td>
-                                    <td>
-                                        @if (item.SenderId == currentUserId)
-                                        {
-                                            <span class="badge badge-primary">Gönderilen</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge badge-success">Alınan</span>
-                                        }
-                                    </td>
-                                    <td>@(item.SenderUser?.WriterName ?? "Bilinmiyor")</td>
-                                    <td>@(item.ReceiverUser?.WriterName ?? "Bilinmiyor")</td>
-                                    <td>@(string.IsNullOrEmpty(item.Subject) ? "Konu yok" : item.Subject)</td>
-                                    <td>@(string.IsNullOrEmpty(item.Content) ? "İçerik yok" : (item.Content.Length > 50 ? item.Content.Substring(0, 50) + "..." : item.Content))</td>
-                                    <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
-                                    <td>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input status-toggle" type="checkbox" 
-                                                   data-id="@item.MessageId" 
-                                                   @(item.Status ? "checked" : "")>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="/Admin/Message/MessageDetails/@item.MessageId" class="btn btn-info btn-sm">
-                                            <i class="fas fa-eye"></i> Detay
-                                        </a>
-                                        <a href="/Admin/Message/UpdateMessage/@item.MessageId" class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> Düzenle
-                                        </a>
-                                        <a href="/Admin/Message/DeleteMessage/@item.MessageId" class="btn btn-danger btn-sm" 
-                                           onclick="return confirm('Bu mesajı silmek istediğinizden emin misiniz?')">
-                                            <i class="fas fa-trash"></i> Sil
-                                        </a>
-                                    </td>
-                                </tr>
+                                <span class="badge bg-primary">Gönderilen</span>
                             }
-                        </tbody>
-                    </table>
-                    
-                    <div class="pagination">
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                    </div>
-                </div>
-            </div>
-        </div>
+                            else
+                            {
+                                <span class="badge bg-success">Alınan</span>
+                            }
+                        </td>
+                        <td>@(item.SenderUser?.WriterName ?? "Bilinmiyor")</td>
+                        <td>@(item.ReceiverUser?.WriterName ?? "Bilinmiyor")</td>
+                        <td>@(string.IsNullOrEmpty(item.Subject) ? "Konu yok" : item.Subject)</td>
+                        <td>@(string.IsNullOrEmpty(item.Content) ? "İçerik yok" : (item.Content.Length > 50 ? item.Content.Substring(0, 50) + "..." : item.Content))</td>
+                        <td>@item.CreatedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input status-toggle" type="checkbox" 
+                                       data-id="@item.MessageId" 
+                                       id="status_@item.MessageId"
+                                       @(item.Status ? "checked" : "")>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="/Admin/Message/MessageDetails/@item.MessageId" class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="/Admin/Message/UpdateMessage/@item.MessageId" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="/Admin/Message/DeleteMessage/@item.MessageId" class="btn btn-sm btn-danger" 
+                               onclick="return confirm('Bu mesajı silmek istediğinizden emin misiniz?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
     </div>
 </div>
 
@@ -95,12 +88,23 @@ $(document).ready(function() {
     $('.status-toggle').change(function() {
         var id = $(this).data('id');
         var status = $(this).is(':checked');
+        var checkbox = $(this);
         
-        $.post('/Admin/Message/ChangeStatus', { id: id, status: status }, function(result) {
-            if (result.success) {
-                toastr.success('Durum başarıyla güncellendi');
-            } else {
-                toastr.error('Durum güncellenirken hata oluştu');
+        $.ajax({
+            url: '/Admin/Message/ChangeStatus',
+            type: 'POST',
+            data: { id: id, status: status },
+            success: function(result) {
+                if (result.success) {
+                    checkbox.prop('checked', result.newStatus);
+                } else {
+                    checkbox.prop('checked', !status);
+                    alert('Durum güncellenirken hata oluştu');
+                }
+            },
+            error: function() {
+                checkbox.prop('checked', !status);
+                alert('Durum güncellenirken hata oluştu');
             }
         });
     });

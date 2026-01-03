@@ -1,145 +1,112 @@
 ﻿@using BlogProject.EntityLayer.Concrete
 @model Blog
 @{
-    ViewData["Title"] = "BlogDetails";
+    ViewData["Title"] = Model?.BlogTitle ?? "Blog Detayı";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
-<div class="banner-inner">
-</div>
-<ol class="breadcrumb">
-	<li class="breadcrumb-item">
-		<a href="index.html">Anasayfa</a>
-	</li>
-	<li class="breadcrumb-item">
-		<a href="/Blog/Index/">Bloglar</a>
-	</li>
-	<li class="breadcrumb-item active">@Model.BlogTitle</li>
-</ol>
 
-<br />
-<br />
-<section class="banner-bottom">
-	<!--/blog-->
-	<div class="container">
-		<div class="row">
-			<!--left-->
-			<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-				<div class="blog-grid-top">
-					<div class="b-grid-top">
-						<div class="blog_info_left_grid">
-							<a href="single.html">
-								<img src="@Model.BlogImage" class="img-fluid" alt="">
-							</a>
-						</div>
-						<div class="blog-info-middle">
-							<ul>
-								<li>
-									<a href="#">
-										<i class="far fa-calendar-alt"></i> @Model.BlogCreateDate.ToShortDateString()
-									</a>
-								</li>
-								<li class="mx-2">
-									<a href="#">
-										<i class="far fa-thumbs-up"></i> @Model.Category.CategoryName
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="far fa-comment"></i> 15 Comments
-									</a>
-								</li>
+@if (Model == null)
+{
+    <div class="container my-5">
+        <div class="alert alert-danger">
+            <h4>Blog bulunamadı!</h4>
+            <p>Aradığınız blog yazısı bulunamadı veya silinmiş olabilir.</p>
+            <a href="/Blog/Index/" class="btn btn-primary">Blog Listesine Dön</a>
+        </div>
+    </div>
+    return;
+}
 
-							</ul>
-						</div>
-					</div>
+<div class="container my-5">
+	<nav aria-label="breadcrumb" class="modern-breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/Blog/Index/">Anasayfa</a></li>
+			<li class="breadcrumb-item"><a href="/Blog/Index/">Bloglar</a></li>
+			<li class="breadcrumb-item active">@Model.BlogTitle</li>
+		</ol>
+	</nav>
 
-					<h3>
-						<a href="single.html">@Model.BlogTitle </a>
-					</h3>
-					<p>
-						@Model.BlogContent
-					</p>
+	<div class="row">
+		<div class="col-lg-8">
+			<article class="blog-detail-card" style="background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
+				<div class="blog-detail-image mb-4">
+					<img src="@Model.BlogImage" class="img-fluid rounded" alt="@Model.BlogTitle" 
+						 onerror="this.src='https://via.placeholder.com/800x400?text=Blog+Image'">
 				</div>
+				
+				<div class="blog-detail-meta mb-4 d-flex gap-4 flex-wrap">
+					<span class="text-muted">
+						<i class="far fa-calendar-alt me-2"></i>@Model.BlogCreateDate.ToString("dd MMMM yyyy")
+					</span>
+					<span class="text-muted">
+						<i class="fas fa-tag me-2"></i>@(Model.Category?.CategoryName ?? "Kategori Yok")
+					</span>
+					<span class="text-muted">
+						<i class="far fa-user me-2"></i>@(Model.Writer?.WriterName ?? "Yazar Yok")
+					</span>
+					<span class="text-muted">
+						<i class="far fa-comment me-2"></i>@(Model.Comments?.Count ?? 0) Yorum
+					</span>
+				</div>
+
+				<h1 class="blog-detail-title mb-4" style="font-size: 2.5rem; font-weight: 800; line-height: 1.2;">
+					@Model.BlogTitle
+				</h1>
+
+				<div class="blog-detail-content" style="font-size: 1.125rem; line-height: 1.8; color: #475569;">
+					@Html.Raw(Model.BlogContent?.Replace("\n", "<br/>"))
+				</div>
+			</article>
+
+			<div class="mt-5">
 				@await Component.InvokeAsync("_CommentListByBlogComponentPartial", ViewBag.id)
-
 			</div>
+		</div>
 
-			<!--//left-->
-			<!--right-->
-			
-			<aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
-				<div class="right-blog-info text-left">
-					<div class="tech-btm">
-						<img src="/web/images/banner1.jpg" class="img-fluid" alt="">
-					</div>
-					@await Html.PartialAsync("/Views/Newsletter/Subscribe.cshtml", new Newsletter())
-					<div class="tech-btm">
-						<h4>Yazarın Blogları</h4>
-						@await Component.InvokeAsync("_CategoryListComponentPartial")
-						@await Component.InvokeAsync("_WriterLastBlogComponentPartial")
-							<div class="col-md-5 blog-grid-left">
-								<a href="single.html">
-									<img src="/web/images/6.jpg" class="img-fluid" alt="">
-								</a>
-							</div>
-							<div class="col-md-7 blog-grid-right">
-								<h5>
-									<a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-								</h5>
-								<div class="sub-meta">
-									<span>
-										<i class="far fa-clock"></i> 20 Feb, 2018
-									</span>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="single-gd my-5 tech-btm">
-						<h4>Our Progress</h4>
-						<div class="progress">
-							<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
-								 aria-valuemax="100"></div>
-						</div>
-						<div class="progress">
-							<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-								 aria-valuemax="100"></div>
-						</div>
-						<div class="progress">
-							<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-								 aria-valuemax="100"></div>
-						</div>
-						<div class="progress">
-							<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-								 aria-valuemax="100"></div>
-						</div>
-						<div class="progress">
-							<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
-								 aria-valuemax="100"></div>
-						</div>
-					</div>
-					<div class="single-gd tech-btm">
-						<h4>Son Eklenen</h4>
-						<div class="blog-grids">
-							<div class="blog-grid-left">
-								<a href="single.html">
-									<img src="/web/images/b1.jpg" class="img-fluid" alt="">
-								</a>
-							</div>
-							<div class="blog-grid-right">
-
-								<h5>
-									<a href="single.html">Pellentesque dui, non felis. Maecenas male</a>
-								</h5>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					
-				</div>
-
+		<div class="col-lg-4">
+			<aside class="blog-sidebar">
+				@await Component.InvokeAsync("_CategoryListComponentPartial")
+				@await Component.InvokeAsync("_WriterLastBlogComponentPartial")
 			</aside>
-			<!--//right-->
 		</div>
 	</div>
-</section>
+</div>
 
+<style>
+	.blog-detail-card {
+		animation: fadeIn 0.5s ease-in;
+	}
+
+	@@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.blog-detail-image img {
+		width: 100%;
+		height: auto;
+		max-height: 500px;
+		object-fit: cover;
+	}
+
+	.blog-sidebar {
+		position: sticky;
+		top: 2rem;
+	}
+
+	.blog-sidebar a {
+		text-decoration: none !important;
+		color: var(--primary-color) !important;
+	}
+
+	.blog-sidebar a:hover {
+		color: var(--secondary-color) !important;
+		text-decoration: none !important;
+	}
+</style>

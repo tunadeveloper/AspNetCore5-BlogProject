@@ -1,34 +1,56 @@
 ﻿@using BlogProject.EntityLayer.Concrete
 @model Writer
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Giriş Yap";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
-<section class="main-content-w3layouts-agileits">
-	<div class="container">
-		<h3 class="tittle">Giriş Yap!</h3>
-		<div class="row inner-sec">
-			<div class="login p-5 bg-light mx-auto mw-100">
-				@using (Html.BeginForm("Index","Login",FormMethod.Post)){
-					<div class="form-group">
-						<label for="exampleInputEmail1 mb-2">E-Posta Adresi</label>
-						@Html.TextBoxFor(x=>x.WriterEmail, new {@class="form-control"})
-						<small id="emailHelp" class="form-text text-muted">E-postanızı asla başkalarıyla paylaşmayacağız.</small>
+<div class="container my-5" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 60vh;">
+	<div class="row w-100">
+		<div class="col-lg-6 col-md-8 mx-auto">
+			<div class="card" style="background: white; border-radius: 20px; box-shadow: 0 8px 24px rgba(69, 40, 41, 0.15); padding: 3rem;">
+				<div class="text-center mb-4">
+					<h2 class="mb-2" style="color: var(--primary-color); font-weight: 700;">
+						<i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+					</h2>
+					<p class="text-muted">Hesabınıza giriş yapın</p>
+				</div>
+
+				@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+				{
+					<div class="mb-4">
+						@Html.LabelFor(x => x.WriterEmail, "E-Posta Adresi", new { @class = "form-label fw-bold", style = "color: var(--primary-color);" })
+						@Html.TextBoxFor(x => x.WriterEmail, new { @class = "form-control", placeholder = "ornek@email.com", style = "border: 2px solid var(--accent-color); border-radius: 10px; padding: 0.75rem;" })
+						@Html.ValidationMessageFor(x => x.WriterEmail, "", new { @class = "text-danger" })
 					</div>
-					<div class="form-group">
-						<label for="exampleInputPassword1 mb-2">Şifre</label>
-						@Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control" })
+
+					<div class="mb-4">
+						@Html.LabelFor(x => x.WriterPassword, "Şifre", new { @class = "form-label fw-bold", style = "color: var(--primary-color);" })
+						@Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control", placeholder = "Şifrenizi giriniz", style = "border: 2px solid var(--accent-color); border-radius: 10px; padding: 0.75rem;" })
+						@Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
 					</div>
-					<div class="form-check mb-2">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1">
-						<label class="form-check-label" for="exampleCheck1">Beni Hatırla</label>
+
+					<div class="mb-4 form-check">
+						<input type="checkbox" class="form-check-input" id="rememberMe" style="border-color: var(--accent-color);">
+						<label class="form-check-label" for="rememberMe" style="color: var(--secondary-color);">
+							Beni Hatırla
+						</label>
 					</div>
-					<button type="submit" class="btn btn-primary submit mb-4">Giriş Yap</button>
-					<p><a href="/Register/Index/"> Hesabınız yok mu?</a></p>
+
+					<button type="submit" class="btn w-100 mb-3" style="background: var(--gradient-1); color: white; border: none; padding: 0.75rem; border-radius: 10px; font-weight: 600; font-size: 1.1rem;">
+						<i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+					</button>
+
+					<div class="text-center">
+						<p class="mb-0" style="color: var(--secondary-color);">
+							Hesabınız yok mu? 
+							<a href="/Register/Index/" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
+								Hemen Kayıt Ol
+							</a>
+						</p>
+					</div>
 				}
 			</div>
 		</div>
 	</div>
-</section>
-
+</div>

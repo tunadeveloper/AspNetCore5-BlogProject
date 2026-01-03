@@ -6,9 +6,11 @@
 <!DOCTYPE html>
 <html lang="zxx">
 @await Component.InvokeAsync("_HeadComponentPartial")
-<body>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
 	@await Component.InvokeAsync("_HeaderComponentPartial")
-	@RenderBody()
+	<main style="flex: 1;">
+		@RenderBody()
+	</main>
 	@await Component.InvokeAsync("_FooterComponentPartial")
 	@await Component.InvokeAsync("_ScriptComponentPartial")
 </body>

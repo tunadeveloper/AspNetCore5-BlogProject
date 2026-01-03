@@ -1,122 +1,360 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html>
-
+<html lang="tr">
 <head>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - Admin Panel</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --sidebar-bg: #1e293b;
+            --sidebar-hover: #334155;
+        }
 
-    <title>Blog Admin Panel</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link href="/inspinia-gh-pages/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/inspinia-gh-pages/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="/inspinia-gh-pages/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="/inspinia-gh-pages/css/animate.css" rel="stylesheet">
-    <link href="/inspinia-gh-pages/css/style.css" rel="stylesheet">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
 
+        /* Sidebar */
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            color: white;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .admin-sidebar .sidebar-header {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-sidebar .sidebar-header h4 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .admin-sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .admin-sidebar .nav-link:hover,
+        .admin-sidebar .nav-link.active {
+            background: var(--sidebar-hover);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+
+        .admin-sidebar .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .admin-main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* Top Navbar */
+        .admin-top-navbar {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-top-navbar .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        /* Content Wrapper */
+        .admin-content-wrapper {
+            padding: 2rem;
+        }
+
+        .admin-page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .admin-breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        /* Modern Cards */
+        .admin-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .admin-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .admin-stat-card.primary::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+        .admin-stat-card.success::before { background: linear-gradient(90deg, #10b981, #059669); }
+        .admin-stat-card.warning::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        .admin-stat-card.danger::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+
+        .admin-stat-card .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-stat-card.primary .stat-icon { background: rgba(99, 102, 241, 0.1); color: var(--primary-color); }
+        .admin-stat-card.success .stat-icon { background: rgba(16, 185, 129, 0.1); color: var(--success-color); }
+        .admin-stat-card.warning .stat-icon { background: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+        .admin-stat-card.danger .stat-icon { background: rgba(239, 68, 68, 0.1); color: var(--danger-color); }
+
+        .admin-stat-card .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+
+        .admin-stat-card .stat-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Table */
+        .admin-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .admin-table table {
+            margin: 0;
+        }
+
+        .admin-table thead {
+            background: var(--light-color);
+        }
+
+        .admin-table thead th {
+            border: none;
+            font-weight: 600;
+            color: var(--dark-color);
+            padding: 1rem;
+        }
+
+        .admin-table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        /* Buttons */
+        .btn-modern {
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+         /* Modern Paging */
+         .pagination {
+             display: flex;
+             justify-content: center;
+             gap: 0.5rem;
+             margin-top: 2rem;
+             list-style: none;
+             padding: 0;
+         }
+
+         .pagination li {
+             display: inline-block;
+         }
+
+         .pagination a,
+         .pagination span {
+             display: inline-block;
+             padding: 0.5rem 1rem;
+             border-radius: 8px;
+             text-decoration: none;
+             color: var(--dark-color);
+             background: white;
+             border: 1px solid #e2e8f0;
+             transition: all 0.3s ease;
+             font-weight: 500;
+         }
+
+         .pagination a:hover {
+             background: var(--primary-color);
+             color: white;
+             border-color: var(--primary-color);
+             transform: translateY(-2px);
+         }
+
+         .pagination .active span {
+             background: var(--primary-color);
+             color: white;
+             border-color: var(--primary-color);
+         }
+
+         .pagination .disabled span {
+             opacity: 0.5;
+             cursor: not-allowed;
+         }
+
+         /* Responsive */
+         @@media (max-width: 768px) {
+             .admin-sidebar {
+                 transform: translateX(-100%);
+             }
+             .admin-sidebar.show {
+                 transform: translateX(0);
+             }
+             .admin-main-content {
+                 margin-left: 0;
+             }
+         }
+    </style>
 </head>
 
 <body>
-
-    <div id="wrapper">
-
+    <div class="admin-sidebar" id="adminSidebar">
         @await Html.PartialAsync("/Views/Admin/AdminNavBarPartial.cshtml")
-
-        <div id="page-wrapper" class="gray-bg">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    </div>
-                    <ul class="nav navbar-top-links navbar-right">
-                        <li>
-                            <span class="m-r-sm text-muted welcome-message">Blog Admin Paneline Hoş Geldiniz</span>
-                        </li>
-                        <li>
-                            <a href="/Admin/Message/Index">
-                                <i class="fa fa-envelope"></i> Mesajlar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/" target="_blank">
-                                <i class="fa fa-external-link"></i> Siteyi Görüntüle
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/Login/LogOut">
-                                <i class="fa fa-sign-out"></i> Çıkış Yap
-                            </a>
-                        </li>
-                    </ul>
-
-                </nav>
-            </div>
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-10">
-                    <h2>@ViewData["Title"]</h2>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="/Admin/Widget/Index">Ana Sayfa</a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <strong>@ViewData["Title"]</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-lg-2">
-                </div>
-            </div>
-            <div class="wrapper wrapper-content animated fadeInRight">
-                @RenderBody()
-            </div>
-            <div class="footer">
-                <div class="float-right">
-                    Blog Admin Paneli
-                </div>
-                <div>
-                    <strong>Copyright</strong> Blog Project &copy; 2024
-                </div>
-            </div>
-
-        </div>
     </div>
 
+    <div class="admin-main-content">
+        <nav class="admin-top-navbar">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-link d-md-none" type="button" id="adminSidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/Admin/Widget/Index/">
+                    <i class="fas fa-shield-alt me-2"></i>Admin Panel
+                </a>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="/Admin/Message/Index/" class="btn btn-link">
+                    <i class="fas fa-envelope fa-lg"></i>
+                </a>
+                <a href="/" target="_blank" class="btn btn-link">
+                    <i class="fas fa-external-link-alt fa-lg"></i>
+                </a>
+                <a href="/Login/LogOut" class="btn btn-outline-danger btn-modern">
+                    <i class="fas fa-sign-out-alt me-2"></i>Çıkış
+                </a>
+            </div>
+        </nav>
 
+        <div class="admin-content-wrapper">
+            <nav aria-label="breadcrumb" class="admin-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Admin/Widget/Index/">Ana Sayfa</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </nav>
 
-    <!-- Mainly scripts -->
-    <script src="/inspinia-gh-pages/js/jquery-3.1.1.min.js"></script>
-    <script src="/inspinia-gh-pages/js/popper.min.js"></script>
-    <script src="/inspinia-gh-pages/js/bootstrap.js"></script>
-    <script src="/inspinia-gh-pages/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="/inspinia-gh-pages/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            <h1 class="admin-page-title">@ViewData["Title"]</h1>
 
-    <!-- Peity -->
-    <script src="/inspinia-gh-pages/js/plugins/peity/jquery.peity.min.js"></script>
+            @RenderBody()
+        </div>
 
-    <!-- Custom and plugin javascript -->
-    <script src="/inspinia-gh-pages/js/inspinia.js"></script>
-    <script src="/inspinia-gh-pages/js/plugins/pace/pace.min.js"></script>
+        <footer class="text-center py-3 text-muted mt-5">
+            <p class="mb-0">&copy; @DateTime.Now.Year Modern Blog - Admin Panel</p>
+        </footer>
+    </div>
 
-    <!-- iCheck -->
-    <script src="/inspinia-gh-pages/js/plugins/iCheck/icheck.min.js"></script>
-
-    <!-- Peity -->
-    <script src="/inspinia-gh-pages/js/demo/peity-demo.js"></script>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
     <script>
-        $(document).ready(function(){
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
+        document.getElementById('adminSidebarToggle')?.addEventListener('click', function() {
+            document.getElementById('adminSidebar').classList.toggle('show');
         });
     </script>
 
+    @RenderSection("Scripts", required: false)
 </body>
-
 </html>

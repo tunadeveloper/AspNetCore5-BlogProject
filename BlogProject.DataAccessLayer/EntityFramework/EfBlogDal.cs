@@ -23,6 +23,8 @@ namespace BlogProject.DataAccessLayer.EntityFramework
         {
             return _context.Blogs
                 .Include(b => b.Category)
+                .Include(b => b.Writer)
+                .Include(b => b.Comments)
                 .ToList();
         }
 

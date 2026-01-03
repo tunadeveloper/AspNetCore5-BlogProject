@@ -1,0 +1,52 @@
+@using BlogProject.EntityLayer.Concrete
+@model List<Contact>
+
+<div class="col-lg-6 col-md-6 mb-4">
+    <div class="admin-card" style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);">
+        <h5 class="mb-3" style="color: var(--primary-color); font-weight: 700; font-size: 1rem;">
+            <i class="fas fa-envelope me-2"></i>Son Gelen 5 Mesaj
+        </h5>
+        
+        @if (Model != null && Model.Any())
+        {
+            <div class="d-flex flex-column gap-2">
+                @foreach (var message in Model)
+                {
+                    <div class="p-2" style="background: var(--light-color); border-radius: 8px; border: 1px solid var(--accent-color);">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <h6 class="mb-0" style="color: var(--primary-color); font-weight: 600; font-size: 0.8rem;">
+                                @(message.ContactUsername ?? "İsimsiz")
+                            </h6>
+                            <span style="color: var(--secondary-color); font-size: 0.7rem;">
+                                @message.ContactDate.ToString("dd MMM yyyy")
+                            </span>
+                        </div>
+                        <p class="mb-1" style="color: var(--primary-color); font-weight: 500; font-size: 0.75rem; margin: 0;">
+                            <i class="fas fa-tag me-1"></i>@(message.ContactSubject ?? "Konu Yok")
+                        </p>
+                        <p class="mb-0" style="color: var(--secondary-color); font-size: 0.7rem; margin: 0; line-height: 1.4;">
+                            @(message.ContactMessage?.Length > 60 ? message.ContactMessage.Substring(0, 60) + "..." : message.ContactMessage ?? "Mesaj içeriği yok")
+                        </p>
+                        <div class="mt-1">
+                            <a href="mailto:@message.ContactEmail" class="text-decoration-none" style="color: var(--primary-color); font-size: 0.7rem;">
+                                <i class="fas fa-envelope me-1"></i>@message.ContactEmail
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p style="color: var(--secondary-color); font-size: 0.875rem;">Henüz mesaj bulunmamaktadır.</p>
+        }
+    </div>
+</div>
+
+<style>
+    .admin-card a:hover {
+        color: var(--secondary-color) !important;
+        text-decoration: underline !important;
+    }
+</style>
+

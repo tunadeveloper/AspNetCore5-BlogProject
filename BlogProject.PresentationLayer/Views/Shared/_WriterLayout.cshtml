@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -7,18 +6,11 @@
 <html lang="en">
 @await Html.PartialAsync("/Views/Writer/HeadPartial.cshtml")
 <body>
-    <div class="container-scroller">
-        @await Html.PartialAsync("/Views/Writer/HeaderPartial.cshtml")
-        <div class="container-fluid page-body-wrapper">
-            @await Html.PartialAsync("/Views/Writer/NavbarPartial.cshtml")
-            <div class="main-panel">
-                <div class="content-wrapper">
-                    @RenderBody()
-                </div>
-                @await Html.PartialAsync("/Views/Writer/FooterPartial.cshtml")
-            </div>
-        </div>
-    </div>
+    @await Html.PartialAsync("/Views/Writer/HeaderPartial.cshtml")
+    @await Html.PartialAsync("/Views/Writer/NavbarPartial.cshtml")
+    @RenderBody()
+    @await Html.PartialAsync("/Views/Writer/FooterPartial.cshtml")
     @await Html.PartialAsync("/Views/Writer/ScriptPartial.cshtml")
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -1,9 +1,201 @@
 ﻿<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admins</title>
-    <link rel="stylesheet" href="/writer/assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="/writer/assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="/writer/assets/css/style.css">
-    <link rel="shortcut icon" href="/writer/assets/images/favicon.ico" />
+    <title>Writer Panel - Modern Blog</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --sidebar-bg: #1e293b;
+            --sidebar-hover: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        /* Sidebar */
+        .modern-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            color: white;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .modern-sidebar .sidebar-header {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modern-sidebar .sidebar-header h4 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .modern-sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .modern-sidebar .nav-link:hover,
+        .modern-sidebar .nav-link.active {
+            background: var(--sidebar-hover);
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+
+        .modern-sidebar .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-navbar .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .top-navbar .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Dashboard Cards */
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .stat-card.primary::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+        .stat-card.success::before { background: linear-gradient(90deg, #10b981, #059669); }
+        .stat-card.warning::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        .stat-card.danger::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        .stat-card.info::before { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+
+        .stat-card .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card.primary .stat-icon { background: rgba(99, 102, 241, 0.1); color: var(--primary-color); }
+        .stat-card.success .stat-icon { background: rgba(16, 185, 129, 0.1); color: var(--success-color); }
+        .stat-card.warning .stat-icon { background: rgba(245, 158, 11, 0.1); color: var(--warning-color); }
+        .stat-card.danger .stat-icon { background: rgba(239, 68, 68, 0.1); color: var(--danger-color); }
+        .stat-card.info .stat-icon { background: rgba(59, 130, 246, 0.1); color: var(--info-color); }
+
+        .stat-card .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+
+        .stat-card .stat-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            padding: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .modern-sidebar {
+                transform: translateX(-100%);
+            }
+            .modern-sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>

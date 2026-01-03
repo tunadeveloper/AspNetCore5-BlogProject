@@ -1,8 +1,66 @@
-﻿
-@{
-    ViewData["Title"] = "BlogTitleListExcel";
+﻿@{
+    ViewData["Title"] = "Blog Başlık Listesi Excel";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>BlogTitleListExcel</h1>
-<a href="/Admin/Blog/ExportDynamicExcelBlogList" class="btn btn-primary">Excel Listesini İndir</a>
+<div class="admin-card">
+    <div class="text-center mb-4">
+        <div class="mb-3">
+            <i class="fas fa-heading" style="font-size: 4rem; color: #8b5cf6;"></i>
+        </div>
+        <h3 class="mb-2" style="color: var(--primary-color); font-weight: 700;">
+            Blog Başlık Listesi Excel Export
+        </h3>
+        <p class="text-muted mb-4">
+            Veritabanındaki tüm blog başlıklarını Excel formatında indirebilirsiniz.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-8 mx-auto">
+            <div class="card" style="background: var(--light-color); border: 2px solid var(--accent-color); border-radius: 15px; padding: 3rem;">
+                <div class="text-center">
+                    <div class="mb-4">
+                        <div class="d-inline-block p-4" style="background: rgba(139, 92, 246, 0.1); border-radius: 50%;">
+                            <i class="fas fa-file-excel" style="font-size: 3rem; color: #8b5cf6;"></i>
+                        </div>
+                    </div>
+                    <h4 class="mb-3" style="color: var(--primary-color); font-weight: 600;">
+                        Dinamik Blog Başlık Listesi
+                    </h4>
+                    <p class="mb-4" style="color: var(--secondary-color); font-size: 1rem; line-height: 1.6;">
+                        Veritabanınızdaki tüm blog başlıklarını içeren güncel bir Excel dosyası oluşturun. 
+                        Bu dosya blog ID'leri ve başlıklarını içerir.
+                    </p>
+                    <a href="/Admin/Blog/ExportDynamicExcelBlogList" class="btn" style="background: linear-gradient(90deg, #8b5cf6, #6366f1); color: white; border: none; padding: 1rem 2.5rem; border-radius: 10px; font-weight: 600; font-size: 1.1rem;">
+                        <i class="fas fa-download me-2"></i>Excel Dosyasını İndir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="text-center p-3" style="background: rgba(139, 92, 246, 0.1); border-radius: 10px;">
+                <i class="fas fa-database mb-2" style="font-size: 2rem; color: #8b5cf6;"></i>
+                <h6 style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem;">Güncel Veriler</h6>
+                <p class="mb-0" style="color: var(--secondary-color); font-size: 0.8rem;">Veritabanından anlık çekilir</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center p-3" style="background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                <i class="fas fa-list mb-2" style="font-size: 2rem; color: #10b981;"></i>
+                <h6 style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem;">Tüm Başlıklar</h6>
+                <p class="mb-0" style="color: var(--secondary-color); font-size: 0.8rem;">Tüm blog başlıkları dahil</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="text-center p-3" style="background: rgba(245, 158, 11, 0.1); border-radius: 10px;">
+                <i class="fas fa-file-excel mb-2" style="font-size: 2rem; color: #f59e0b;"></i>
+                <h6 style="color: var(--primary-color); font-weight: 600; font-size: 0.9rem;">Excel Formatı</h6>
+                <p class="mb-0" style="color: var(--secondary-color); font-size: 0.8rem;">.xlsx formatında</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,61 @@
-﻿
-@{
-    ViewData["Title"] = "BlogListExcel";
+﻿@{
+    ViewData["Title"] = "Blog Listesi Excel";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>BlogListExcel</h1>
-<a href="/Admin/Blog/ExportStaticExcelBlogList" class="btn btn-primary">Excel Listesini İndir</a>
+<div class="admin-card">
+    <div class="text-center mb-4">
+        <div class="mb-3">
+            <i class="fas fa-file-excel" style="font-size: 4rem; color: #10b981;"></i>
+        </div>
+        <h3 class="mb-2" style="color: var(--primary-color); font-weight: 700;">
+            Blog Listesi Excel Export
+        </h3>
+        <p class="text-muted mb-4">
+            Statik blog listesini Excel formatında indirebilirsiniz.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100" style="background: var(--light-color); border: 2px solid var(--accent-color); border-radius: 15px; padding: 2rem;">
+                <div class="text-center">
+                    <i class="fas fa-info-circle mb-3" style="font-size: 2.5rem; color: var(--primary-color);"></i>
+                    <h5 class="mb-3" style="color: var(--primary-color); font-weight: 600;">Statik Liste</h5>
+                    <p class="mb-4" style="color: var(--secondary-color); font-size: 0.9rem;">
+                        Önceden tanımlanmış statik blog listesini içerir.
+                    </p>
+                    <a href="/Admin/Blog/ExportStaticExcelBlogList" class="btn w-100" style="background: linear-gradient(90deg, #6366f1, #8b5cf6); color: white; border: none; padding: 0.75rem; border-radius: 10px; font-weight: 600;">
+                        <i class="fas fa-download me-2"></i>Excel İndir
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100" style="background: var(--light-color); border: 2px solid var(--accent-color); border-radius: 15px; padding: 2rem;">
+                <div class="text-center">
+                    <i class="fas fa-database mb-3" style="font-size: 2.5rem; color: var(--primary-color);"></i>
+                    <h5 class="mb-3" style="color: var(--primary-color); font-weight: 600;">Dinamik Liste</h5>
+                    <p class="mb-4" style="color: var(--secondary-color); font-size: 0.9rem;">
+                        Veritabanından güncel blog başlıklarını içerir.
+                    </p>
+                    <a href="/Admin/Blog/ExportDynamicExcelBlogList" class="btn w-100" style="background: linear-gradient(90deg, #10b981, #059669); color: white; border: none; padding: 0.75rem; border-radius: 10px; font-weight: 600;">
+                        <i class="fas fa-download me-2"></i>Excel İndir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info" style="background: rgba(59, 130, 246, 0.1); border-color: #3b82f6; color: #1e40af; border-radius: 10px;">
+        <div class="d-flex align-items-start">
+            <i class="fas fa-lightbulb me-3 mt-1" style="font-size: 1.5rem;"></i>
+            <div>
+                <h6 class="mb-2" style="font-weight: 600;">Bilgi</h6>
+                <p class="mb-0" style="font-size: 0.9rem;">
+                    Statik liste önceden tanımlanmış örnek verileri içerir. Dinamik liste ise veritabanınızdaki tüm blog başlıklarını içerir.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
