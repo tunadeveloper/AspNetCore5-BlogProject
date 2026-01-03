@@ -14,7 +14,7 @@ namespace BlogProject.DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=TUNA\\SQLEXPRESS;Database=BlogProject-asp5;integrated security=true;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-97JKMRT\\SQLEXPRESS;Database=BlogProject-asp5;integrated security=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

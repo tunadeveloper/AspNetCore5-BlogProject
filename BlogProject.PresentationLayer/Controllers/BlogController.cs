@@ -48,6 +48,7 @@ namespace BlogProject.PresentationLayer.Controllers
             return View(values);
         }
 
+        [Authorize(AuthenticationSchemes = "WriterAuth")]
         public async Task<IActionResult> BlogListByWriter()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -67,6 +68,7 @@ namespace BlogProject.PresentationLayer.Controllers
             return View(values);
         }
 
+        [Authorize(AuthenticationSchemes = "WriterAuth")]
         public IActionResult CreateBlog()
         {
             List<SelectListItem> categoryValues = (from x in _categoryService.GetAllBL()
@@ -123,6 +125,7 @@ namespace BlogProject.PresentationLayer.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "WriterAuth")]
         public IActionResult UpdateBlog(int id)
         {
             var values = _blogService.GetByIdBL(id);
@@ -183,6 +186,7 @@ namespace BlogProject.PresentationLayer.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "WriterAuth")]
         public IActionResult DeleteBlog(int id)
         {
             var values = _blogService.GetByIdBL(id);

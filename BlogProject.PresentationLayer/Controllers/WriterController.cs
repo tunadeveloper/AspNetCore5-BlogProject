@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(AuthenticationSchemes = "WriterAuth")]
     public class WriterController : Controller
     {
         private readonly IWriterService _writerService;

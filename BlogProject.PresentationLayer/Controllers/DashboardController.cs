@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlogProject.PresentationLayer.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(AuthenticationSchemes = "WriterAuth")]
     public class DashboardController : Controller
     {
         private readonly IBlogService _blogService;
