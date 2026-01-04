@@ -1,6 +1,6 @@
 # 🚀 ASP.NET Core 5 Blog Uygulaması
 
-Bu proje, ASP.NET Core ile geliştirilmiş modern bir blog platformudur. Blog yönetimi, rol tabanlı yetkilendirme, dinamik içerik işlemleri ve temiz bir mimari yapısı sunar. Veri yönetimi için SQL Server kullanılmış olup, proje katmanlı mimari prensiplerine göre yapılandırılmıştır. Kullanıcı deneyimini artırmak için AJAX destekli işlemler ve modern arayüz bileşenleri uygulanmıştır. ✨
+Bu proje, ASP.NET Core ile geliştirmiş olduğum modern bir blog platformudur. Blog yönetimi, rol tabanlı yetkilendirme, dinamik içerik işlemleri ve temiz bir mimari yapısı sunar. Veri yönetimi için SQL Server kullanmış olup, proje katmanlı mimari prensiplerine göre yapılandırdım. ✨
 
 ---
 
