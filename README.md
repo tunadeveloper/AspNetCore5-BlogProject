@@ -13,6 +13,7 @@ Bu proje, ASP.NET Core ile geliştirmiş olduğum modern bir blog platformudur. 
 📤 **Excel** export (ClosedXML)  
 📑 **X.PagedList** – Sayfalama  
 🛡️ **FluentValidation** – Form doğrulama  
+🌦️ **Weather API** entegrasyonu – Hava durumu verileri  
 
 ## 📂 Katmanlar
 
