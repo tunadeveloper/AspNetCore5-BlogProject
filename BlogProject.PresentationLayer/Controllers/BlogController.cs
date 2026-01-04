@@ -39,7 +39,7 @@ namespace BlogProject.PresentationLayer.Controllers
 
         public IActionResult Index(int? categoryId, int page = 1)
         {
-            var allBlogs = _blogService.GetListWithCategoryBL().Where(x => x.BlogStatus == true).ToList();
+            var allBlogs = _blogService.GetListWithCategoryBL().Where(x => x.BlogStatus == true).OrderByDescending(z=>z.BlogCreateDate).ToList();
             
             if (categoryId.HasValue && categoryId.Value > 0)
             {

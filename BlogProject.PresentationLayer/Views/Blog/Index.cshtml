@@ -24,15 +24,13 @@
 					<i class="fas fa-filter me-2"></i>Kategorilere Göre Filtrele
 				</h5>
 				<div class="d-flex flex-wrap gap-2">
-					<a href="/Blog/Index/" class="btn @(ViewBag.SelectedCategoryId == null ? "btn-primary" : "btn-outline-primary")" 
-					   style="@(ViewBag.SelectedCategoryId == null ? "background: var(--primary-color); border-color: var(--primary-color);" : "")">
+					<a href="/Blog/Index/" class="category-filter-btn @(ViewBag.SelectedCategoryId == null ? "active" : "")">
 						Tümü
 					</a>
 					@foreach (var category in ViewBag.Categories as List<Category>)
 					{
 						<a href="/Blog/Index/?categoryId=@category.CategoryId" 
-						   class="btn @(ViewBag.SelectedCategoryId != null && (int)ViewBag.SelectedCategoryId == category.CategoryId ? "btn-primary" : "btn-outline-primary")"
-						   style="@(ViewBag.SelectedCategoryId != null && (int)ViewBag.SelectedCategoryId == category.CategoryId ? "background: var(--primary-color); border-color: var(--primary-color);" : "")">
+						   class="category-filter-btn @(ViewBag.SelectedCategoryId != null && (int)ViewBag.SelectedCategoryId == category.CategoryId ? "active" : "")">
 							@category.CategoryName
 						</a>
 					}
@@ -129,5 +127,37 @@
 	.pagination .disabled span {
 		opacity: 0.5;
 		cursor: not-allowed;
+	}
+
+	.category-filter-btn {
+		padding: 0.6rem 1.2rem;
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		border: 2px solid var(--accent-color);
+		background: white;
+		color: var(--primary-color);
+		display: inline-block;
+	}
+
+	.category-filter-btn:hover {
+		background: var(--light-color);
+		border-color: var(--primary-color);
+		color: var(--primary-color);
+		transform: translateY(-2px);
+		box-shadow: 0 2px 4px rgba(69, 40, 41, 0.1);
+	}
+
+	.category-filter-btn.active {
+		background: var(--primary-color);
+		border-color: var(--primary-color);
+		color: white;
+	}
+
+	.category-filter-btn.active:hover {
+		background: var(--secondary-color);
+		border-color: var(--secondary-color);
+		color: white;
 	}
 </style>
